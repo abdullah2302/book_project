@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+    <title>Book Management System</title>
+
+  
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+             Books
+        </div>
+
+        <div class="nav-links">
+            <a href="/" class="active">Home</a>
+            <a href="/add.html">Add</a>
+            <a href="/search.html">Search</a>
+            <a href="/edit.html">Edit</a>
+            <a href="/delete.html">Delete</a>
+            <a href="/viewAll.html">View All</a>
+        </div>
+
+    </nav>
+
+    <div class="container">
+
+        <h1>Book Management System</h1>
+
+        <div class="form-container">
+
+            <h2>Add Book</h2>
+
+            <form id="bookForm">
+
+                <input type="text" id="title" placeholder="Book Title" required>
+
+                <input type="text" id="author" placeholder="Author" required>
+
+                <input type="number" id="price" placeholder="Price" required>
+
+                <input type="text" id="category" placeholder="Category" required>
+
+                <button type="submit">Add Book</button>
+
+            </form>
+
+        </div>
+
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

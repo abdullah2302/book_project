@@ -1,14 +1,13 @@
 const express = require("express");
-
 const cors = require("cors");
-// const dotenv = require("dotenv");
+const dotenv = require("dotenv");
 const path = require("path");
-const PORT=3000;
+
 const bookRoutes = require("./routes/booksRoute");
 const connectDB = require("./config/db");
 
-// dotenv.config();
-
+dotenv.config();
+const PORT=process.env.PORT;
 const app = express();
 connectDB();
 const cora=app.use(cors());

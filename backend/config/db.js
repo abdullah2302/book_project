@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-
-const MONGO_URI = "mongodb+srv://books_user_123:hCGxkWeEPicwOwDf@cluster0.pquiq48.mongodb.net/";
+const dotenv = require("dotenv");
+dotenv.config();
+const MONGO_URI = process.env.MONGO_URI;
 
 const connectDB = () => {
     mongoose

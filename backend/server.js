@@ -15,7 +15,7 @@ const cora=app.use(cors());
 app.use(express.json());
 
 
- const loc=app.use(express.static(path.join(__dirname, "../frontend")));
+app.use(express.static(path.join(__dirname, "../frontend")));
 //  console.log(loc);
 
 

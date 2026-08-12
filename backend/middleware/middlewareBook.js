@@ -1,6 +1,6 @@
-const book=require("../model/books");
+import book from "../model/books.js";
 
-async function checkUniqueTitle(req, res, next) {
+export async function checkUniqueTitle(req, res, next) {
     try {
         const { title } = req.body;
         const bookId = req.params.id;
@@ -19,5 +19,3 @@ async function checkUniqueTitle(req, res, next) {
         res.status(500).json({ message: error.message });
     }
 }
-
-module.exports = { checkUniqueTitle };

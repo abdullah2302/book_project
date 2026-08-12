@@ -1,8 +1,8 @@
-const Book = require("../model/books");
+import Book from "../model/books.js";
 
 
 
-async function getAllBooks(req, res) {
+export async function getAllBooks(req, res) {
     try {
         const books = await Book.find();
         res.json(books);
@@ -13,7 +13,7 @@ async function getAllBooks(req, res) {
 }
 
 
-async function getBookById(req, res) {
+export async function getBookById(req, res) {
     try {
         const book = await Book.findById(req.params.id);
 
@@ -29,7 +29,7 @@ async function getBookById(req, res) {
 }
 
 
-async function addBook(req, res) {
+export async function addBook(req, res) {
     try {
         const book = new Book({
             title: req.body.title,
@@ -47,7 +47,7 @@ async function addBook(req, res) {
 }
 
 
-async function updateBook(req, res) {
+export async function updateBook(req, res) {
     try {
         const book = await Book.findByIdAndUpdate(
             req.params.id,
@@ -66,7 +66,7 @@ async function updateBook(req, res) {
 }
 
 
-async function deleteBook(req, res) {
+export async function deleteBook(req, res) {
     try {
         const book = await Book.findByIdAndDelete(req.params.id);
 
@@ -80,13 +80,5 @@ async function deleteBook(req, res) {
     }
 }
 
-
-module.exports = {
-    getAllBooks,
-    getBookById,
-    addBook,
-    updateBook,
-    deleteBook
-};
 
 

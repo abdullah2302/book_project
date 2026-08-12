@@ -227,7 +227,8 @@ if (searchForm) {
             const results = books.filter(book => {
 
                 return (
-                    book.title.toLowerCase().startsWith(searchQuery)
+                    book.title.toLowerCase().startsWith(searchQuery) 
+                    // ||book.title.toLowerCase().includes(searchQuery)
                 );
 
             });

@@ -7,6 +7,6 @@ const router = express.Router();
 router.use(morgan("dev"));
 router.route("/").get(getAllBooks).post(checkUniqueTitle, addBook);
 
-router.route("/:id").get(getBookById).put(updateBook).delete(deleteBook); 
+router.route("/:id").get(getBookById).put(checkUniqueTitle,updateBook).delete(deleteBook); 
 
 module.exports = router;

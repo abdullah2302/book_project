@@ -200,7 +200,6 @@ if (deleteForm) {
 
 
 const searchForm = document.getElementById("searchForm");
-
 if (searchForm) {
 
     searchForm.addEventListener("submit", async (e) => {
@@ -228,7 +227,7 @@ if (searchForm) {
             const results = books.filter(book => {
 
                 return (
-                    book.title.toLowerCase().includes(searchQuery) 
+                    book.title.toLowerCase().startsWith(searchQuery)
                 );
 
             });

@@ -12,8 +12,7 @@ const PORT = process.env.PORT ;
 const app = express();
 
 
-const filename = fileURLToPath(import.meta.url);
-const dirname = path.dirname(filename);
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 
 connectDB();

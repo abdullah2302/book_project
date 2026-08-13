@@ -138,7 +138,7 @@ body {
 }
 
 
-/* Page container (Add / Search / Edit / Delete / View All) */
+/* Page container (Add / Search / View All) */
 
 .container {
     max-width: 800px;
@@ -177,7 +177,7 @@ body:has(#booksList) .container {
     border-bottom: 1px solid #334155;
 }
 
-#bookForm, #editForm, #deleteForm, #searchForm {
+#bookForm, #searchForm {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -225,12 +225,82 @@ body:has(#booksList) .container {
     background: #2563eb;
 }
 
-.form-container button.delete-btn {
-    background: #dc2626;
+
+/* Filter bar (View All page) */
+
+.filter-container {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 25px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 18px;
 }
 
-.form-container button.delete-btn:hover {
-    background: #b91c1c;
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 150px;
+}
+
+.filter-group label {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.filter-group select,
+.filter-group input {
+    padding: 9px 12px;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #f1f5f9;
+    background: #0f172a;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.filter-actions {
+    flex-direction: row;
+    min-width: unset;
+}
+
+.filter-container button {
+    padding: 9px 18px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.filter-container button#applyFilters {
+    background: #3b82f6;
+    color: white;
+}
+
+.filter-container button#applyFilters:hover {
+    background: #2563eb;
+}
+
+.filter-container button.secondary-btn {
+    background: #334155;
+    color: #e2e8f0;
+}
+
+.filter-container button.secondary-btn:hover {
+    background: #475569;
 }
 
 
@@ -304,6 +374,141 @@ body:has(#booksList) .container {
 }
 
 
+/* Edit / Delete buttons on each book card */
+
+.book-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #334155;
+}
+
+.book-actions button {
+    flex: 1;
+    padding: 7px 0;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.book-actions .edit-btn {
+    background: #334155;
+    color: #e2e8f0;
+}
+
+.book-actions .edit-btn:hover {
+    background: #475569;
+}
+
+.book-actions .delete-btn {
+    background: #dc2626;
+    color: white;
+}
+
+.book-actions .delete-btn:hover {
+    background: #b91c1c;
+}
+
+
+/* Edit modal */
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 100;
+}
+
+.modal-overlay.open {
+    display: flex;
+}
+
+.modal {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 30px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid #334155;
+}
+
+.modal-header h2 {
+    color: #f1f5f9;
+    font-size: 20px;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.modal-close:hover {
+    color: #f1f5f9;
+}
+
+#editForm {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#editForm input {
+    padding: 11px 14px;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #f1f5f9;
+    background: #0f172a;
+}
+
+#editForm input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+#editForm button {
+    padding: 11px 24px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#editForm button:hover {
+    background: #2563eb;
+}
 
 
 @media (max-width: 700px) {
@@ -342,6 +547,15 @@ body:has(#booksList) .container {
     .form-container,
     .books-container {
         padding: 20px;
+    }
+
+    .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-group {
+        min-width: unset;
     }
 }
 

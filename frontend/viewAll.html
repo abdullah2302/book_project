@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <title>All Books</title>
 
     <link rel="stylesheet" href="style.css">
@@ -22,8 +22,6 @@
             <a href="/">Home</a>
             <a href="/add.html">Add</a>
             <a href="/search.html">Search</a>
-            <a href="/edit.html">Edit</a>
-            <a href="/delete.html">Delete</a>
             <a href="/viewAll.html" class="active">View All</a>
         </div>
 
@@ -40,6 +38,40 @@
         </div>
 
     </div>
+
+
+    
+    <div id="editModalOverlay" class="modal-overlay">
+
+        <div class="modal">
+
+            <div class="modal-header">
+                <h2>Edit Book</h2>
+                <button type="button" id="closeEditModal" class="modal-close">&times;</button>
+            </div>
+
+            <form id="editForm">
+
+                <input type="hidden" id="editId">
+
+                <input type="text" id="editTitleInput" placeholder="Book Title" required>
+
+                <input type="text" id="editAuthorInput" placeholder="Author" required>
+
+                <input type="number" id="editPriceInput" placeholder="Price" required>
+
+                <input type="text" id="editCategoryInput" placeholder="Category" required>
+
+                <button type="submit">
+                    Save Changes
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
 
     <script src="script.js"></script>
 

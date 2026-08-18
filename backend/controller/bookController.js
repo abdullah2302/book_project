@@ -34,7 +34,7 @@ export async function createBook(req, res) {
             author: req.body.author,
             price: req.body.price,
             category: req.body.category,
-            coverImage: req.file ? req.file.path : undefined
+            coverImage: req.file ? req.file.path : req.body.coverImage
         };
 
         const savedBook = await Book.create(book);
@@ -53,8 +53,8 @@ export async function updateBook(req, res) {
             author: req.body.author,
             price: req.body.price,
             category: req.body.category,
+            coverImage: req.body.coverImage
         };
-
         if (req.file) {
             updateData.coverImage = req.file.path;
         }

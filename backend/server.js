@@ -7,10 +7,17 @@ import { errorHandler } from "./middleware/errorHandler.js";
 import bookRoutes from "./routes/booksRoute.js";
 import { connectDB } from "./config/db.js";
 import { apiLimiter } from "./middleware/limiter.js";
+import helmet from "helmet";
 
 dotenv.config();
 const PORT = process.env.PORT;
 const app = express();
+app.use(helmet());
+
+
+app.disable('x-powered-by');
+
+
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(errorHandler);

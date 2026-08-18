@@ -37,13 +37,15 @@
 
             <form id="bookForm">
 
-                <input type="text" id="title" placeholder="Book Title" required>
+                <input type="text" id="title" placeholder="Book Title" >
 
-                <input type="text" id="author" placeholder="Author" required>
+                <input type="text" id="author" placeholder="Author" >
 
-                <input type="number" id="price" placeholder="Price" required>
+                <input type="number" id="price" placeholder="Price"  step="5">
 
-                <input type="text" id="category" placeholder="Category" required>
+                <input type="text" id="category" placeholder="Category" >
+
+                <input type="file" id="coverImage" accept="image/*">
 
                 <button type="submit">Add Book</button>
 
@@ -54,7 +56,7 @@
 
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="js/main.js"></script>
 
 </body>
 

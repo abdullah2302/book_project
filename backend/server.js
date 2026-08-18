@@ -3,27 +3,27 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
-
+import { errorHandler } from "./middleware/errorHandler.js";
 import bookRoutes from "./routes/booksRoute.js";
-import {connectDB} from "./config/db.js";
+import { connectDB } from "./config/db.js";
+import { apiLimiter } from "./middleware/limiter.js";
 
 dotenv.config();
-const PORT = process.env.PORT ;
+const PORT = process.env.PORT;
 const app = express();
 
-
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-
-
+app.use(errorHandler);
 connectDB();
 
 
 app.use(cors());
+app.use('/api', apiLimiter);
 app.use(express.json());
 
 
 app.use(express.static(path.join(dirname, "../frontend")));
-
+app.use("/uploads", express.static(path.join(dirname, "../uploads")));
 
 app.use("/api/books", bookRoutes);
 

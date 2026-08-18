@@ -17,6 +17,10 @@ const bookSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true
-    }
+    },
+    coverImage: { 
+        type: String, 
+        
+    },
 });
 export default mongoose.model("Book", bookSchema);

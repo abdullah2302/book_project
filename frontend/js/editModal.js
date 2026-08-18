@@ -1,0 +1,83 @@
+import { API_URL } from "./config.js";
+import { getBooks } from "./renderBooks.js";
+
+const editModalOverlay = document.getElementById("editModalOverlay");
+const editForm = document.getElementById("editForm");
+const closeEditModal = document.getElementById("closeEditModal");
+
+export function openEditModal(book) {
+
+    if (!editModalOverlay) {
+        return;
+    }
+
+    document.getElementById("editId").value = book._id;
+    document.getElementById("editTitleInput").value = book.title;
+    document.getElementById("editAuthorInput").value = book.author;
+    document.getElementById("editPriceInput").value = book.price;
+    document.getElementById("editCategoryInput").value = book.category;
+    document.getElementById("editCoverImageInput").value = "";
+
+    editModalOverlay.classList.add("open");
+}
+
+function closeEditModalFn() {
+    if (editModalOverlay) {
+        editModalOverlay.classList.remove("open");
+    }
+}
+
+if (closeEditModal) {
+    closeEditModal.addEventListener("click", closeEditModalFn);
+}
+
+if (editModalOverlay) {
+    editModalOverlay.addEventListener("click", (e) => {
+        if (e.target === editModalOverlay) {
+            closeEditModalFn();
+        }
+    });
+}
+
+if (editForm) {
+
+    editForm.addEventListener("submit", async (e) => {
+
+        e.preventDefault();
+
+        const id = document.getElementById("editId").value;
+
+       const formData = new FormData();
+        formData.append('title', document.getElementById("editTitleInput").value);
+        formData.append('author', document.getElementById("editAuthorInput").value);
+        formData.append('price', document.getElementById("editPriceInput").value);
+        formData.append('category', document.getElementById("editCategoryInput").value);
+        formData.append('coverImage', document.getElementById("editCoverImageInput").files[0]);
+
+        try {
+
+            const updateResponse = await fetch(`${API_URL}/${id}`, {
+                method: "PUT",
+                body: formData
+            });
+
+            if (updateResponse.ok) {
+
+                alert("Book updated successfully!");
+                closeEditModalFn();
+                getBooks();
+
+            } else {
+
+                const data = await updateResponse.json();
+                const msg = data.errors?.[0]?.message || data.message || "Error updating book.";
+                alert(msg);
+            }
+
+        } catch (error) {
+
+            console.error("Update error:", error);
+            alert("Something went wrong.");
+        }
+    });
+}

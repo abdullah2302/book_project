@@ -29,16 +29,17 @@ export async function getBookById(req, res) {
 }
 
 
-export async function addBook(req, res) {
+export async function createBook(req, res) {
     try {
-        const book = new Book({
+       const book= {
             title: req.body.title,
-            author: req.body.author,
-            price: req.body.price,
-            category: req.body.category
-        });
+            author: req.body.author,    
+        price: req.body.price,
+        category: req.body.category,
+        coverImage: req.file ? req.file.path : undefined
+        };
 
-        const savedBook = await book.save();
+        const savedBook = await Book.create(book);
 
         res.status(201).json(savedBook);
     } catch (error) {
@@ -49,10 +50,21 @@ export async function addBook(req, res) {
 
 export async function updateBook(req, res) {
     try {
+        const updateData = {
+            title: req.body.title,
+            author: req.body.author,
+            price: req.body.price,
+            category: req.body.category,
+        };
+
+        if (req.file) {
+            updateData.coverImage = req.file.path;
+        }
+
         const book = await Book.findByIdAndUpdate(
             req.params.id,
-            req.body,
-           { returnDocument: 'after' }
+            updateData,
+            { new: true, runValidators: true }
         );
 
         if (!book) {
@@ -64,7 +76,6 @@ export async function updateBook(req, res) {
         res.status(400).json({ message: error.message });
     }
 }
-
 
 export async function deleteBook(req, res) {
     try {

@@ -323,7 +323,30 @@ body:has(#booksList) .container {
     flex-direction: column;
     gap: 14px;
 }
+.book-cover {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+    background: #0f172a;
+    border-bottom: 1px solid #334155;
+}
 
+.book-cover.no-cover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+.book-info {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
 #booksList {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -344,7 +367,8 @@ body:has(#booksList) .container {
     border-bottom: 4px solid #3b82f6;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 0;
+     
 }
 
 #booksList .book:hover {
@@ -379,7 +403,7 @@ body:has(#booksList) .container {
 .book-actions {
     display: flex;
     gap: 8px;
-    margin-top: 12px;
+    margin-top: auto;
     padding-top: 12px;
     border-top: 1px solid #334155;
 }

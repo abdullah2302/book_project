@@ -1,7 +1,5 @@
 import Book from "../model/books.js";
 
-
-
 export async function getAllBooks(req, res) {
     try {
         const books = await Book.find();
@@ -31,12 +29,12 @@ export async function getBookById(req, res) {
 
 export async function createBook(req, res) {
     try {
-       const book= {
+        const book = {
             title: req.body.title,
-            author: req.body.author,    
-        price: req.body.price,
-        category: req.body.category,
-        coverImage: req.file ? req.file.path : undefined
+            author: req.body.author,
+            price: req.body.price,
+            category: req.body.category,
+            coverImage: req.file ? req.file.path : undefined
         };
 
         const savedBook = await Book.create(book);
@@ -64,7 +62,7 @@ export async function updateBook(req, res) {
         const book = await Book.findByIdAndUpdate(
             req.params.id,
             updateData,
-            { new: true, runValidators: true }
+            { returnDocument: true, runValidators: true }
         );
 
         if (!book) {

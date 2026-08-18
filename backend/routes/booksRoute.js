@@ -9,8 +9,13 @@ import {upload} from "../middleware/upload.js";
 const router = express.Router();
 
 router.use(morgan("dev"));
-router.route("/").get(getAllBooks).post(upload.single('coverImage'), bookValidationRules, checkUniqueTitle, createBook);
+router.route("/")
+      .get(getAllBooks)
+      .post(upload.single('coverImage'), bookValidationRules, checkUniqueTitle, createBook);
 
-router.route("/:id").get(getBookById).put(upload.single('coverImage'),bookValidationRules, checkUniqueTitle, updateBook).delete(deleteBook);
+router.route("/:id")
+      .get(getBookById)
+      .put(upload.single('coverImage'), bookValidationRules, checkUniqueTitle, updateBook)
+      .delete(deleteBook);
 
 export default router;

@@ -319,9 +319,9 @@ body:has(#booksList) .container {
 }
 
 #searchResults {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
 }
 .book-cover {
     width: 100%;
@@ -379,6 +379,10 @@ body:has(#booksList) .container {
 #searchResults .book {
     border-left: 4px solid #3b82f6;
     border-right: 4px solid #3b82f6;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .book h3 {

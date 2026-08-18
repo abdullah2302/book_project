@@ -43,23 +43,20 @@ async function runSearch() {
             const div = document.createElement("div");
             div.className = "book";
 
+            const coverHtml = book.coverImage
+                ? `<img src="${book.coverImage}" alt="${book.title} Cover" class="book-cover">`
+                : `<div class="book-cover no-cover">No Image</div>`;
+
             div.innerHTML = `
-                <h3>${book.title}</h3>
+                ${coverHtml}
 
-                <p>
-                    <strong>Author:</strong>
-                    ${book.author}
-                </p>
+                <div class="book-info">
+                    <h3>${book.title}</h3>
 
-                <p>
-                    <strong>Price:</strong>
-                    $${book.price}
-                </p>
-
-                <p>
-                    <strong>Category:</strong>
-                    ${book.category}
-                </p>
+                    <p><strong>Author:</strong> ${book.author}</p>
+                    <p><strong>Price:</strong> $${book.price}</p>
+                    <p><strong>Category:</strong> ${book.category}</p>
+                </div>
             `;
 
             searchResults.appendChild(div);
@@ -84,6 +81,6 @@ if (searchQueryInput) {
 
     searchQueryInput.addEventListener("input", () => {
         clearTimeout(searchDebounce);
-        searchDebounce = setTimeout(runSearch, 10);
+        searchDebounce = setTimeout(runSearch, 10); 
     });
 }

@@ -21,23 +21,28 @@
         <div class="nav-links">
             <a href="/">Home</a>
             <a href="/add.html">Add</a>
-            <a href="/search.html">Search</a>
-            <a href="/viewAll.html" class="active">View All</a>
+            <a href="/viewAll.html">Actions</a>
+            
         </div>
 
     </nav>
 
-    <div class="container">
+ <div class="container">
 
-        <h1>All Books</h1>
+    <h1>All Books</h1>
 
-        <div class="books-container">
-
-            <div id="booksList"></div>
-
+    <div id="filter-container">
+        <div id="filter-group">
+            <label for="viewAllSearch">Search by title</label>
+            <input type="text" id="viewAllSearch" placeholder="Type book title...">
         </div>
-
     </div>
+
+    <div class="books-container">
+        <div id="booksList"></div>
+    </div>
+
+</div>
 
 
     

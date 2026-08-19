@@ -1,86 +1,32 @@
-import { API_URL } from "./config.js";
+import { getAllBooks } from "./state.js";
+import { renderBooks } from "./renderBooks.js";
 
-const searchForm = document.getElementById("searchForm");
-const searchQueryInput = document.getElementById("searchQuery");
+const viewAllSearch = document.getElementById("viewAllSearch");
 
-async function runSearch() {
+if (viewAllSearch) {
 
-    const searchResults = document.getElementById("searchResults");
+    let debounceTimer;
 
-    if (!searchQueryInput || !searchResults) {
-        return;
-    }
+    viewAllSearch.addEventListener("input", () => {
 
-    const searchQuery = searchQueryInput.value.toLowerCase().trim();
+        clearTimeout(debounceTimer);
 
-    if (!searchQuery) {
-        searchResults.innerHTML = "";
-        return;
-    }
+        debounceTimer = setTimeout(() => {
 
-    try {
+            const query = viewAllSearch.value.toLowerCase().trim();
+            const allBooks = getAllBooks();
 
-        const response = await fetch(API_URL);
-        const books = await response.json();
+            if (!query) {
+                renderBooks(allBooks); 
+                return;
+            }
 
-        const results = books.filter(book =>
-            book.title.toLowerCase().startsWith(searchQuery)
-        );
+            const filtered = allBooks.filter(book =>
+                book.title.toLowerCase().startsWith(query)
+            );
 
-        searchResults.innerHTML = "";
+            renderBooks(filtered);
 
-        if (results.length === 0) {
-            searchResults.innerHTML = `
-                <p class="no-results">
-                    No books found.
-                </p>
-            `;
-            return;
-        }
-
-        results.forEach(book => {
-
-            const div = document.createElement("div");
-            div.className = "book";
-
-            const coverHtml = book.coverImage
-                ? `<img src="${book.coverImage}" alt="${book.title} Cover" class="book-cover">`
-                : `<div class="book-cover no-cover">No Image</div>`;
-
-            div.innerHTML = `
-                ${coverHtml}
-
-                <div class="book-info">
-                    <h3>${book.title}</h3>
-
-                    <p><strong>Author:</strong> ${book.author}</p>
-                    <p><strong>Price:</strong> $${book.price}</p>
-                    <p><strong>Category:</strong> ${book.category}</p>
-                </div>
-            `;
-
-            searchResults.appendChild(div);
-        });
-
-    } catch (error) {
-
-        console.log("Search error:", error);
-    }
-}
-
-if (searchForm) {
-    searchForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        runSearch();
-    });
-}
-
-if (searchQueryInput) {
-
-    let searchDebounce;
-
-    searchQueryInput.addEventListener("input", () => {
-        clearTimeout(searchDebounce);
-        searchDebounce = setTimeout(runSearch, 10); 
+        }, 250);
     });
 }

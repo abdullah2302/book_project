@@ -6,8 +6,10 @@ export function renderBooks(books) {
     const booksList = document.getElementById("booksList");
 
     if (!booksList) {
+       
         return;
     }
+   
 
     booksList.innerHTML = "";
 
@@ -59,6 +61,12 @@ export async function getBooks() {
     }
 
     try {
+         // add loading indicator
+        booksList.innerHTML = `
+            <p class="loading">
+                Loading books...
+            </p>
+        `;
 
         const response = await fetch(API_URL);
         const books = await response.json();

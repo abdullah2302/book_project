@@ -10,7 +10,10 @@ if (booksListEl) {
     booksListEl.addEventListener("click", async (e) => {
 
         const editBtn = e.target.closest(".edit-btn");
+        console.log("Edit button clicked:", editBtn);
+
         const deleteBtn = e.target.closest(".delete-btn");
+        console.log("Delete button clicked:", deleteBtn);
         const allBooks = getAllBooks();
 
         if (editBtn) {

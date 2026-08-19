@@ -61,7 +61,9 @@ export async function getBooks() {
     }
 
     try {
-         // add loading indicator
+       
+           
+    
         booksList.innerHTML = `
           <div class="loading-state">
             <div class="spinner"></div>
@@ -69,8 +71,7 @@ export async function getBooks() {
         </div>
     `;
         
-
-        const response = await fetch(API_URL);
+ const response = await fetch(API_URL);
         const books = await response.json();
 
         setAllBooks(books);

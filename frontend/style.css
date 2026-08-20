@@ -105,6 +105,7 @@ body {
 }
 
 
+
 /* Hero */
 
 .home {
@@ -113,6 +114,32 @@ body {
     justify-content: center;
     align-items: center;
     padding: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.home::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('public/book.jpeg');
+    background-position: center;
+    filter: blur(2px);
+    transform: scale(1.1); 
+    z-index: 0;
+}
+
+.home::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 15, 20, 0.72); 
+    z-index: 1;
+}
+
+.home .hero {
+    position: relative;
+    z-index: 2;
 }
 
 .hero {

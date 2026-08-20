@@ -148,7 +148,7 @@ body {
     max-width: 720px;
     padding: 68px 56px;
     text-align: center;
-    border-radius: var(--radius-lg);
+    
     box-shadow: var(--shadow-lift);
     position: relative;
 }
@@ -220,7 +220,7 @@ body {
 }
 
 
-/* Page container */
+
 
 .container {
     max-width: 800px;
@@ -394,7 +394,7 @@ body:has(#booksList) .container {
 
 .book {
     border: 1px solid var(--border);
-    border-radius: var(--radius-md);
+ 
     background: var(--bg-elevated);
     box-shadow: var(--shadow-soft);
     transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);

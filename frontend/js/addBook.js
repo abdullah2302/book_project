@@ -29,6 +29,14 @@ if (bookForm) {
                 body: formData
             });
 
+            if (response.status === 429) {
+                const data = await response.json();
+                console.log("Rate limit exceeded:", data.message);
+                alert(data.message || "Too many requests. Please try again later.");
+                return;
+            }
+
+
             if (response.ok) {
 
                 alert("Book added successfully!");

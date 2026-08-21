@@ -55,6 +55,7 @@ export function renderBooks(books) {
 export async function getBooks() {
 
     const booksList = document.getElementById("booksList");
+    
 
     if (!booksList) {
         return;
@@ -72,6 +73,14 @@ export async function getBooks() {
     `;
         
  const response = await fetch(API_URL);
+ if (response.status === 429) {
+            booksList.innerHTML = `
+                <p class="no-results">
+                    Too many requests. Please wait a moment and refresh.
+                </p>
+            `;
+            return;
+        }
         const books = await response.json();
 
         setAllBooks(books);

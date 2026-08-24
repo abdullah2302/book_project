@@ -7,21 +7,21 @@
 
     <link rel="icon" href="./public/favicon.ico" type="image/x-icon">
     <title>Book Management System</title>
-  <link rel="stylesheet" href="style.css">
-  
+    <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
     <nav class="navbar">
         <div class="logo">
-             Books
+            Books
         </div>
 
         <div class="nav-links">
             <a href="/">Home</a>
             <a href="/add.html" class="active">Add</a>
-            <a href="/viewAll.html" >My Library</a>
+            <a href="/viewAll.html">My Library</a>
         </div>
 
     </nav>
@@ -36,15 +36,31 @@
 
             <form id="bookForm">
 
-                <input type="text" id="title" placeholder="Book Title" required> 
+                <input type="text" id="title" placeholder="Book Title" required>
 
-                <input type="text" id="author" placeholder="Author" required>
+                <select id="author" >
+                    <option value="">Select Author</option>
+                </select>
 
-                <input type="number" id="price" placeholder="Price"  step="5" required>
+                <div id="newAuthorSection" class="new-author-section" style="display: none;">
 
-                <input type="text" id="category" placeholder="Category"  required>
+                    <input type="text" id="newAuthorName" placeholder="Author name">
+                    <input type="text" id="newAuthorQualification" placeholder="Qualification (e.g. MA English)">
+                    <input type="date" id="newAuthorBirthDate">
+                    <input type="text" id="newAuthorNationality" placeholder="Nationality">
 
-                <input type="file" id="coverImage" accept="image/*" >
+                    <div class="new-author-actions">
+                        <button type="button" id="saveNewAuthor">Save Author</button>
+                        <button type="button" id="cancelNewAuthor">Cancel</button>
+                    </div>
+
+                </div>
+
+                <input type="number" id="price" placeholder="Price" step="5" required>
+
+                <input type="text" id="category" placeholder="Category" required>
+
+                <input type="file" id="coverImage" accept="image/*">
 
                 <button type="submit">Add Book</button>
 

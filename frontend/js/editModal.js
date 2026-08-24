@@ -1,11 +1,39 @@
-import { API_URL } from "./config.js";
+import { API_URL, AUTHOR_API_URL } from "./config.js";
 import { getBooks } from "./renderBooks.js";
+import { getAuthors } from "./renderAuthors.js";
 
 const editModalOverlay = document.getElementById("editModalOverlay");
 const editForm = document.getElementById("editForm");
 const closeEditModal = document.getElementById("closeEditModal");
+const editAuthorSelect = document.getElementById("editAuthorInput");
 
-export function openEditModal(book) {
+// Modal khulte hi authors list fetch karo taake dropdown mein sab options hon
+async function populateAuthorDropdown(selectedAuthorId) {
+
+    try {
+        const response = await fetch(AUTHOR_API_URL);
+        const authors = await response.json();
+
+        editAuthorSelect.innerHTML = `<option value="">Select Author</option>`;
+
+        authors.forEach(author => {
+            const option = document.createElement("option");
+            option.value = author._id;
+            option.textContent = author.name;
+
+            if (author._id === selectedAuthorId) {
+                option.selected = true;
+            }
+
+            editAuthorSelect.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error("Error loading authors for edit modal:", error);
+    }
+}
+
+export async function openEditModal(book) {
 
     if (!editModalOverlay) {
         return;
@@ -13,10 +41,13 @@ export function openEditModal(book) {
 
     document.getElementById("editId").value = book._id;
     document.getElementById("editTitleInput").value = book.title;
-    document.getElementById("editAuthorInput").value = book.author;
     document.getElementById("editPriceInput").value = book.price;
     document.getElementById("editCategoryInput").value = book.category;
     document.getElementById("editCoverImageInput").value = "";
+
+    const currentAuthorId = book.author?._id || book.author || "";
+
+    await populateAuthorDropdown(currentAuthorId);
 
     editModalOverlay.classList.add("open");
 }
@@ -47,12 +78,16 @@ if (editForm) {
 
         const id = document.getElementById("editId").value;
 
-       const formData = new FormData();
+        const formData = new FormData();
         formData.append('title', document.getElementById("editTitleInput").value);
-        formData.append('author', document.getElementById("editAuthorInput").value);
+        formData.append('author', editAuthorSelect.value);
         formData.append('price', document.getElementById("editPriceInput").value);
         formData.append('category', document.getElementById("editCategoryInput").value);
-        formData.append('coverImage', document.getElementById("editCoverImageInput").files[0]);
+
+        const fileInput = document.getElementById("editCoverImageInput");
+        if (fileInput.files[0]) {
+            formData.append('coverImage', fileInput.files[0]);
+        }
 
         try {
 

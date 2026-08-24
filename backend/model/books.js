@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import Author from "./author.js";
 const bookSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -7,8 +7,9 @@ const bookSchema = new mongoose.Schema({
         unique: true
     },
     author: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Author", 
+        required: true 
     },
     price: {
         type: Number,
@@ -19,8 +20,23 @@ const bookSchema = new mongoose.Schema({
         required: true
     },
     coverImage: { 
-        type: String 
-        
+        type: String
     },
 });
+
+
+
+bookSchema.pre("save", function () {
+    this.title = this.title.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+    this.category = this.category.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+    if (this.price < 0) {
+        this.price = Math.abs(this.price);
+    }
+});
+
+bookSchema.post("save", function (doc) {
+    console.log("Book saved:", doc);
+});
+
+
 export default mongoose.model("Book", bookSchema);

@@ -6,10 +6,10 @@ export function renderBooks(books) {
     const booksList = document.getElementById("booksList");
 
     if (!booksList) {
-       
+
         return;
     }
-   
+
 
     booksList.innerHTML = "";
 
@@ -31,13 +31,15 @@ export function renderBooks(books) {
             ? `<img src="${book.coverImage}" alt="${book.title} Cover" class="book-cover">`
             : `<div class="book-cover no-cover">No Image</div>`;
 
+        const authorName = book.author?.name || "Unknown Author";
+
         div.innerHTML = `
             ${coverHtml}
 
             <div class="book-info">
                 <h3>${book.title}</h3>
 
-                <p><strong>Author:</strong> ${book.author}</p>
+                <p><strong>Author:</strong> ${authorName}</p>
                 <p><strong>Price:</strong> $${book.price}</p>
                 <p><strong>Category:</strong> ${book.category}</p>
 
@@ -55,25 +57,25 @@ export function renderBooks(books) {
 export async function getBooks() {
 
     const booksList = document.getElementById("booksList");
-    
+
 
     if (!booksList) {
         return;
     }
 
     try {
-       
-           
-    
+
+
+
         booksList.innerHTML = `
           <div class="loading-state">
             <div class="spinner"></div>
             <p>Loading books...</p>
         </div>
     `;
-        
- const response = await fetch(API_URL);
- if (response.status === 429) {
+
+        const response = await fetch(API_URL);
+        if (response.status === 429) {
             booksList.innerHTML = `
                 <p class="no-results">
                     Too many requests. Please wait a moment and refresh.

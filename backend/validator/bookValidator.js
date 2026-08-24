@@ -22,7 +22,7 @@ import * as z from 'zod';
 export const bookSchema = z.object({
     title: z.string().nonempty({ message: "Title is required" }),
     author: z.string().nonempty({ message: "Author is required" }),
-    price: z.coerce.number().positive({ message: "Price must be a positive number" }),
+    price: z.coerce.number(),
     category: z.string().nonempty({ message: "Category is required" }),
     coverImage: z.any().optional()
 });

@@ -22,42 +22,43 @@ if (booksListEl) {
             const book = allBooks.find(b => b._id === id);
 
             if (book) {
-                openEditModal(book);
+                await openEditModal(book);   // await add karo
             }
             return;
-        }
+        
+    }
 
         if (deleteBtn) {
 
-            const id = deleteBtn.dataset.id;
-            const book = allBooks.find(b => b._id === id);
+        const id = deleteBtn.dataset.id;
+        const book = allBooks.find(b => b._id === id);
 
-            if (!book) {
-                return;
-            }
-
-            const confirmDelete = confirm(`Are you sure you want to delete "${book.title}"?`);
-
-            if (!confirmDelete) {
-                return;
-            }
-
-            try {
-
-                const deleteResponse = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-
-                if (deleteResponse.ok) {
-                    alert("Book deleted successfully!");
-                    getBooks();
-                } else {
-                    alert("Error deleting book.");
-                }
-
-            } catch (error) {
-
-                console.log("Delete error:", error);
-                alert("Something went wrong.");
-            }
+        if (!book) {
+            return;
         }
-    });
+
+        const confirmDelete = confirm(`Are you sure you want to delete "${book.title}"?`);
+
+        if (!confirmDelete) {
+            return;
+        }
+
+        try {
+
+            const deleteResponse = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+
+            if (deleteResponse.ok) {
+                alert("Book deleted successfully!");
+                getBooks();
+            } else {
+                alert("Error deleting book.");
+            }
+
+        } catch (error) {
+
+            console.log("Delete error:", error);
+            alert("Something went wrong.");
+        }
+    }
+});
 }

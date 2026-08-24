@@ -22,7 +22,7 @@ if (booksListEl) {
             const book = allBooks.find(b => b._id === id);
 
             if (book) {
-                await openEditModal(book);   // await add karo
+                await openEditModal(book);   
             }
             return;
         

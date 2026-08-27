@@ -1,11 +1,19 @@
+
 import { API_URL } from "./config.js";
 import { setAllBooks } from "./state.js";
 
-let currentPage = 1;
+
+let currentPage = Number(new URLSearchParams(window.location.search).get("page")) || 1;
 const limit = 8;
 
 export function getCurrentPage() {
     return currentPage;
+}
+
+ function updateURL(page) {
+    const url = new URL(window.location);
+    url.searchParams.set("page", page);
+    window.history.replaceState({}, "", url);
 }
 
 export function renderBooks(books) {
@@ -104,6 +112,7 @@ export async function getBooks(page=currentPage) {
     }
 
     currentPage = page;
+    updateURL(currentPage);
 
     try {
 

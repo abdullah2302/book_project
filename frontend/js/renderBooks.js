@@ -1,15 +1,15 @@
 import { API_URL } from "./config.js";
 import { setAllBooks } from "./state.js";
 
+let currentPage = 1;
+
 export function renderBooks(books) {
 
     const booksList = document.getElementById("booksList");
 
     if (!booksList) {
-
         return;
     }
-
 
     booksList.innerHTML = "";
 
@@ -38,7 +38,6 @@ export function renderBooks(books) {
 
             <div class="book-info">
                 <h3>${book.title}</h3>
-
                 <p><strong>Author:</strong> ${authorName}</p>
                 <p><strong>Price:</strong> $${book.price}</p>
                 <p><strong>Category:</strong> ${book.category}</p>
@@ -54,27 +53,65 @@ export function renderBooks(books) {
     });
 }
 
-export async function getBooks() {
+function renderPaginationControls(currentPageNum, totalPages) {
+
+    const booksContainer = document.querySelector(".books-container");
+    let paginationEl = document.getElementById("paginationControls");
+
+    if (!paginationEl) {
+        paginationEl = document.createElement("div");
+        paginationEl.id = "paginationControls";
+        paginationEl.className = "pagination-controls";
+        booksContainer.appendChild(paginationEl);
+    }
+
+    if (totalPages <= 1) {
+        paginationEl.innerHTML = "";
+        return;
+    }
+
+    paginationEl.innerHTML = `
+        <button type="button" id="prevPage" ${currentPageNum === 1 ? "disabled" : ""}>← Previous</button>
+        <span class="page-info">Page ${currentPageNum} of ${totalPages}</span>
+        <button type="button" id="nextPage" ${currentPageNum === totalPages ? "disabled" : ""}>Next →</button>
+    `;
+
+    document.getElementById("prevPage")?.addEventListener("click", () => {
+        if (currentPage > 1) {
+            currentPage--;
+            getBooks(currentPage);
+        }
+    });
+
+    document.getElementById("nextPage")?.addEventListener("click", () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            getBooks(currentPage);
+        }
+    });
+}
+
+export async function getBooks(page = 1) {
 
     const booksList = document.getElementById("booksList");
-
 
     if (!booksList) {
         return;
     }
 
+    currentPage = page;
+
     try {
 
-
-
         booksList.innerHTML = `
-          <div class="loading-state">
-            <div class="spinner"></div>
-            <p>Loading books...</p>
-        </div>
-    `;
+            <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading books...</p>
+            </div>
+        `;
 
-        const response = await fetch(API_URL);
+        const response = await fetch(`${API_URL}?page=${page}&limit=12`);
+
         if (response.status === 429) {
             booksList.innerHTML = `
                 <p class="no-results">
@@ -83,10 +120,12 @@ export async function getBooks() {
             `;
             return;
         }
-        const books = await response.json();
 
-        setAllBooks(books);
-        renderBooks(books);
+        const data = await response.json();
+
+        setAllBooks(data.books);
+        renderBooks(data.books);
+        renderPaginationControls(data.currentPage, data.totalPages);
 
     } catch (error) {
 

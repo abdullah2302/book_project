@@ -2,10 +2,28 @@ import Book from "../model/books.js";
 import Author from "../model/author.js";
 import mongoose from "mongoose";
 
+
+
 export async function getAllBooks(req, res) {
     try {
-        const books = await Book.find().populate("author");
-        res.json(books);
+        const page=parseInt(req.query.page) || 1;
+        const limit=parseInt(req.query.limit) || 12;
+        const skip=(page-1)*limit;
+
+        const books = await Book.find()
+            .skip(skip)
+            .limit(limit)
+            .populate("author", "name");
+
+
+        const totalBooks = await Book.countDocuments();
+
+        res.json({
+            totalBooks,
+            totalPages: Math.ceil(totalBooks / limit),
+            currentPage: Number(page),
+            books
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

@@ -13,6 +13,7 @@ router.use(morgan("dev"));
 router.route("/")
       .get(getAllBooks)
       .post(uploadMiddleware, bookValidationRules, checkUniqueTitle, createBook);
+      
 router.get("/aggregate",getCategoryAggregatedBooks);
 
 router.route("/:id")

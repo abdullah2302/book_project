@@ -33,11 +33,23 @@
     <h1>All Books</h1>
 
     <div class="filter-container">
-        <div class="filter-group">
-            <label for="viewAllSearch">Search by title</label>
-            <input type="text" id="viewAllSearch" placeholder="Type book title...">
-        </div>
+
+    <div class="filter-group">
+        <label for="viewAllSearch">Search</label>
+        <input type="text" id="viewAllSearch" placeholder="Type book title...">
     </div>
+
+    <div class="filter-group">
+        <label for="filterField">Search by</label>
+        <select id="filterField">
+            <option value="title" selected>Title</option>
+            <option value="category">Category</option>
+            <option value="price">Price</option>
+            <option value="author">Author</option>
+        </select>
+    </div>
+
+</div>
 
     <div class="books-container">
         <div id="booksList"></div>

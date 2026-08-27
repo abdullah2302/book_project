@@ -52,7 +52,7 @@ if (viewAllSearch) {
 
     viewAllSearch.addEventListener("input", () => {
         clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(runFilter, 250);
+        debounceTimer = setTimeout(runFilter);
     });
 }
 
@@ -60,10 +60,10 @@ if (filterField) {
 
     filterField.addEventListener("change", () => {
 
-        // Placeholder update karo selected field ke hisaab se
+        
         viewAllSearch.placeholder = placeholders[filterField.value] || "Search...";
 
-        // Field switch hote hi turant re-filter karo agar kuch type ho chuka hai
+        
         if (viewAllSearch.value.trim()) {
             runFilter();
         }

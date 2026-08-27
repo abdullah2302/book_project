@@ -27,7 +27,7 @@ const bookSchema = new mongoose.Schema({
 bookSchema.index({ category: 1 });
 bookSchema.index({ price: 1 });
 bookSchema.index({ author: 1 });
-bookSchema.index({ title: 1 });
+
 
 bookSchema.pre("save", function () {
     this.title = this.title.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");

@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 export async function getAllBooks(req, res) {
     try {
         const page=parseInt(req.query.page) || 1;
-        const limit=parseInt(req.query.limit) || 12;
+        const limit=parseInt(req.query.limit) || 8;
         const skip=(page-1)*limit;
 
         const books = await Book.find()
@@ -21,6 +21,7 @@ export async function getAllBooks(req, res) {
         res.json({
             totalBooks,
             totalPages: Math.ceil(totalBooks / limit),
+            currentBooksCount: books.length,
             currentPage: Number(page),
             books
         });

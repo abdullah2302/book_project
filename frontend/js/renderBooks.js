@@ -2,6 +2,7 @@ import { API_URL } from "./config.js";
 import { setAllBooks } from "./state.js";
 
 let currentPage = 1;
+let limit = 8; 
 
 export function renderBooks(books) {
 
@@ -110,7 +111,7 @@ export async function getBooks(page = 1) {
             </div>
         `;
 
-        const response = await fetch(`${API_URL}?page=${page}&limit=12`);
+        const response = await fetch(`${API_URL}?page=${page}&limit=${limit}`);
 
         if (response.status === 429) {
             booksList.innerHTML = `

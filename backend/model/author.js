@@ -20,6 +20,8 @@ const authorSchema = new mongoose.Schema({
     }
 });
 
+authorSchema.index({ name: 1 });
+
 authorSchema.pre("save", function () {
     this.name = this.name.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
     this.qualification = this.qualification.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");

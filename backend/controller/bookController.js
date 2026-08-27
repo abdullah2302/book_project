@@ -83,7 +83,7 @@ export async function updateBook(req, res) {
         }
 
         updateData.title = updateData.title.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
-        updateData.author = updateData.author.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+        
         updateData.category = updateData.category.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 
         const book = await Book.findByIdAndUpdate(

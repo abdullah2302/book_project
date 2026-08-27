@@ -1,6 +1,6 @@
 import { API_URL } from "./config.js";
 import { getAllBooks } from "./state.js";
-import { getBooks } from "./renderBooks.js";
+  import { getBooks, getCurrentPage } from "./renderBooks.js";
 import { openEditModal } from "./editModal.js";
 
 const booksListEl = document.getElementById("booksList");
@@ -49,7 +49,7 @@ if (booksListEl) {
 
             if (deleteResponse.ok) {
                 alert("Book deleted successfully!");
-                getBooks();
+                getBooks(getCurrentPage());
             } else {
                 alert("Error deleting book.");
             }

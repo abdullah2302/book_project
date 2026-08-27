@@ -23,6 +23,7 @@ export async function getAllBooks(req, res) {
             totalPages: Math.ceil(totalBooks / limit),
             currentBooksCount: books.length,
             currentPage: Number(page),
+            defaultLimit: 8,
             books
         });
     } catch (error) {

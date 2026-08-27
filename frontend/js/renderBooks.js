@@ -2,7 +2,11 @@ import { API_URL } from "./config.js";
 import { setAllBooks } from "./state.js";
 
 let currentPage = 1;
-let limit = 8; 
+const limit = 8;
+
+export function getCurrentPage() {
+    return currentPage;
+}
 
 export function renderBooks(books) {
 
@@ -77,12 +81,11 @@ function renderPaginationControls(currentPageNum, totalPages) {
         <button type="button" id="nextPage" ${currentPageNum === totalPages ? "disabled" : ""}>Next →</button>
     `;
 
-    document.getElementById("prevPage")?.addEventListener("click", () => {
-        if (currentPage > 1) {
-            currentPage--;
-            getBooks(currentPage);
-        }
-    });
+   document.getElementById("prevPage")?.addEventListener("click", () => {
+    if (currentPage > 1) {
+        getBooks(currentPage - 1);
+    }
+});
 
     document.getElementById("nextPage")?.addEventListener("click", () => {
         if (currentPage < totalPages) {
@@ -92,7 +95,7 @@ function renderPaginationControls(currentPageNum, totalPages) {
     });
 }
 
-export async function getBooks(page = 1) {
+export async function getBooks(page=currentPage) {
 
     const booksList = document.getElementById("booksList");
 

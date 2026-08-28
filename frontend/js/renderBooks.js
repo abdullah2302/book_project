@@ -5,6 +5,8 @@ import { setAllBooks } from "./state.js";
 
 let currentPage = Number(new URLSearchParams(window.location.search).get("page")) || 1;
 const limit = 8;
+let currentSearch = "";
+let currentCategory = "";
 
 export function getCurrentPage() {
     return currentPage;
@@ -13,6 +15,7 @@ export function getCurrentPage() {
  function updateURL(page) {
     const url = new URL(window.location);
     url.searchParams.set("page", page);
+    url.searchParams.set("limit", limit);
     window.history.replaceState({}, "", url);
 }
 

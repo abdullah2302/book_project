@@ -9,6 +9,7 @@ export async function getAllBooks(req, res) {
         const page=parseInt(req.query.page) || 1;
         const limit=parseInt(req.query.limit) || 8;
         const skip=(page-1)*limit;
+        
 
         const books = await Book.find()
             .skip(skip)

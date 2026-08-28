@@ -8,7 +8,6 @@ const editForm = document.getElementById("editForm");
 const closeEditModal = document.getElementById("closeEditModal");
 const editAuthorSelect = document.getElementById("editAuthorInput");
 
-// Modal khulte hi authors list fetch karo taake dropdown mein sab options hon
 async function populateAuthorDropdown(selectedAuthorId) {
 
     try {

@@ -52,7 +52,7 @@ if (loginForm) {
 
             const response = await fetch(`${AUTH_API_URL}/login`, {
                 method: "POST",
-                credentials: "include",   // refresh token cookie set karne ke liye zaroori
+                credentials: "include",   
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
             });

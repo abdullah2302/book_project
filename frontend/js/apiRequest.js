@@ -25,7 +25,7 @@ async function refreshAccessToken() {
     }
 }
 
-// Ye wrapper function protected requests ke liye use hoga
+
 export async function apiRequest(url, options = {}) {
 
     let accessToken = getAccessToken();
@@ -39,7 +39,7 @@ export async function apiRequest(url, options = {}) {
         credentials: "include"
     });
 
-    // Access token expire ho gaya — refresh try karo
+    
     if (response.status === 401) {
 
         const newAccessToken = await refreshAccessToken();

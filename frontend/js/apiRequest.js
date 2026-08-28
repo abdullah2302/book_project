@@ -16,6 +16,7 @@ async function refreshAccessToken() {
 
         const data = await response.json();
         saveAuth(data.accessToken, getUser());
+        
 
         return data.accessToken;
 

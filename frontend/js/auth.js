@@ -65,9 +65,11 @@ if (loginForm) {
             }
 
             saveAuth(data.accessToken, data.user);
+            
 
             alert("Login successful!");
             window.location.href = "/viewAll.html";
+            alert("Login response:", data.user);
 
         } catch (error) {
             console.error("Login error:", error);

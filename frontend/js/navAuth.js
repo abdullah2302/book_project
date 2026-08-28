@@ -11,22 +11,13 @@ if (navLinks) {
 
         const logoutBtn = document.createElement("a");
         logoutBtn.href = "#";
-        logoutBtn.textContent = `Logout (${user?.name || "User"})`;
+        logoutBtn.textContent = `Logout (${user?.username || user?.email || "User"})`;
         logoutBtn.addEventListener("click", (e) => {
             e.preventDefault();
             logoutUser();
         });
 
         navLinks.appendChild(logoutBtn);
-
-        // Admin-only link dikhana ho to
-        if (isAdmin()) {
-            const adminLink = document.createElement("a");
-            adminLink.href = "/admin.html";
-            adminLink.textContent = "Admin Panel";
-            navLinks.appendChild(adminLink);
-        }
-
     } else {
 
         const loginLink = document.createElement("a");

@@ -18,6 +18,7 @@ export function getUser() {
 export function clearAuth() {
     sessionStorage.removeItem(ACCESS_TOKEN_KEY);
     sessionStorage.removeItem(USER_KEY);
+    sessionStorage.clear();
 }
 
 export function isLoggedIn() {

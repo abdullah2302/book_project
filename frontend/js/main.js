@@ -5,6 +5,8 @@ import "./search.js";
 import "./bookOpen.js";
 import "./apiHelper.js";
 import "./addAuthor.js"
+import "./auth.js";
+import "./navAuth.js";
 import { getBooks } from "./renderBooks.js";
 import {getAuthors} from "./renderAuthors.js";
 

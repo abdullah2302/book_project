@@ -781,6 +781,159 @@ body:has(#booksList) .container {
     font-weight: 600;
 }
 
+.form-switch {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.form-switch a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.form-switch a:hover {
+    text-decoration: underline;
+}
+
+/* ============ Login / Register pages ============ */
+
+body:has(#loginForm),
+body:has(#registerForm) {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+body:has(#loginForm) .container,
+body:has(#registerForm) .container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    margin: 0;
+    padding: 40px 20px;
+}
+
+body:has(#loginForm) .container h1,
+body:has(#registerForm) .container h1 {
+    display: none;   /* form-container ke andar apna heading dikhayenge */
+}
+
+body:has(#loginForm) .form-container,
+body:has(#registerForm) .form-container {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+body:has(#loginForm) .form-container::before,
+body:has(#registerForm) .form-container::before {
+    display: block;
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+body:has(#loginForm) .form-container::after,
+body:has(#registerForm) .form-container::after {
+    display: block;
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 28px;
+}
+
+body:has(#loginForm) .form-container::after {
+    content: "Welcome Back";
+}
+
+body:has(#registerForm) .form-container::after {
+    content: "Create Account";
+}
+
+#loginForm,
+#registerForm {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#loginForm input,
+#registerForm input {
+    padding: 13px 15px;
+    font-size: 14.5px;
+    color: var(--text-primary);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: var(--sans);
+    transition: 0.2s ease;
+    width: 100%;
+}
+
+#loginForm input:focus,
+#registerForm input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+#loginForm input::placeholder,
+#registerForm input::placeholder {
+    color: var(--text-muted);
+}
+
+#loginForm button,
+#registerForm button {
+    padding: 13px 0;
+    background: var(--accent);
+    color: var(--accent-text);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+    margin-top: 8px;
+    width: 100%;
+}
+
+#loginForm button:hover,
+#registerForm button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--accent-dim);
+}
+
+.form-switch {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.form-switch a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.form-switch a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 500px) {
+
+    body:has(#loginForm) .form-container,
+    body:has(#registerForm) .form-container {
+        padding: 28px 24px;
+    }
+}
 /* Loading state */
 
 .loading-state {

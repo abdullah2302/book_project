@@ -1,4 +1,5 @@
 import { API_URL } from "./config.js";
+import { apiRequest } from "./apiRequest.js";
 
 const bookForm = document.getElementById("bookForm");
 
@@ -24,10 +25,15 @@ if (bookForm) {
 
         try {
 
-            const response = await fetch(API_URL, {
+             const response = await apiRequest(API_URL, {
                 method: "POST",
                 body: formData
             });
+
+            if (response.status === 401) {
+                alert("You are not authorized. Please log in.");
+                return;
+            }
 
             if (response.status === 429) {
                 const data = await response.json();

@@ -1,6 +1,7 @@
 import { API_URL, AUTHOR_API_URL } from "./config.js";
 import { getBooks, getCurrentPage } from "./renderBooks.js";
 import { getAuthors } from "./renderAuthors.js";
+import { apiRequest } from "./apiRequest.js";
 
 const editModalOverlay = document.getElementById("editModalOverlay");
 const editForm = document.getElementById("editForm");
@@ -91,7 +92,7 @@ if (editForm) {
 
         try {
 
-            const updateResponse = await fetch(`${API_URL}/${id}`, {
+            const updateResponse = await apiRequest(`${API_URL}/${id}`, {
                 method: "PUT",
                 body: formData
             });

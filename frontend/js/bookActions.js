@@ -2,6 +2,7 @@ import { API_URL } from "./config.js";
 import { getAllBooks } from "./state.js";
   import { getBooks, getCurrentPage } from "./renderBooks.js";
 import { openEditModal } from "./editModal.js";
+import { apiRequest } from "./apiRequest.js";
 
 const booksListEl = document.getElementById("booksList");
 
@@ -45,7 +46,12 @@ if (booksListEl) {
 
         try {
 
-            const deleteResponse = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+            const deleteResponse = await apiRequest(`${API_URL}/${id}`, { method: "DELETE" });
+
+            if (deleteResponse.status === 401) {
+                alert("You are not Admin. if you are admin Login and give the proof to delete the book.");
+                return;
+            }
 
             if (deleteResponse.ok) {
                 alert("Book deleted successfully!");

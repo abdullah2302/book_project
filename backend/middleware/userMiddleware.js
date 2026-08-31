@@ -28,3 +28,17 @@ export function authorizeRoles(...roles) {
         next();
     };
 }
+
+
+export async function checkAdminExists(req, res, next) {
+    try {
+        const adminExists = await User.exists({ role: "admin" });
+        if (adminExists) {
+            return res.status(400).json({ message: "Admin already exists" });
+        }
+        next();
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+}
+

@@ -1,5 +1,6 @@
 import { AUTH_API_URL } from "./config.js";
 import { saveAuth, clearAuth } from "./authStorage.js";
+import { showToast } from "./toast.js";
 
 const registerForm = document.getElementById("registerForm");
 const loginForm = document.getElementById("loginForm");
@@ -25,16 +26,16 @@ if (registerForm) {
             const data = await response.json();
 
             if (!response.ok) {
-                alert(data.message || "Registration failed.");
+                showToast(data.message || "Registration failed.", "error");
                 return;
             }
 
-            alert("Registration successful! Please login.");
+            showToast("Registration successful! Please login.", "success");
             window.location.href = "/login.html";
 
         } catch (error) {
             console.error("Register error:", error);
-            alert("Something went wrong.");
+            showToast("Something went wrong.", "error");
         }
     });
 }
@@ -60,20 +61,20 @@ if (loginForm) {
             const data = await response.json();
 
             if (!response.ok) {
-                alert(data.message || "Login failed.");
+                showToast(data.message || "Login failed.", "error");
                 return;
             }
 
             saveAuth(data.accessToken, data.user);
             
 
-            alert("Login successful!");
+            showToast("Login successful!", "success");
             window.location.href = "/viewAll.html";
-            alert("Login response:", data.user);
+            
 
         } catch (error) {
             console.error("Login error:", error);
-            alert("Something went wrong.");
+            showToast("Something went wrong.", "error");
         }
     });
 }
@@ -81,10 +82,19 @@ if (loginForm) {
 export async function logoutUser() {
 
     try {
-        await fetch(`${AUTH_API_URL}/logout`, {
+       let response = await fetch(`${AUTH_API_URL}/logout`, {
             method: "POST",
             credentials: "include"
         });
+        const data = await response.json();
+if (!response.ok) {
+            
+            showToast(data.message || "Logout failed.", "error");
+        }
+
+        showToast("Logout successful!", "success");
+
+
     } catch (error) {
         console.error("Logout error:", error);
     }

@@ -1,5 +1,6 @@
 import { API_URL } from "./config.js";
 import { apiRequest } from "./apiRequest.js";
+import{showToast} from "./toast.js";
 
 const bookForm = document.getElementById("bookForm");
 
@@ -31,23 +32,23 @@ if (bookForm) {
             });
 
             if (response.status === 401) {
-                alert("You are not authorized. Please log in.");
+                showToast("You are not authorized. Please log in.", "error");
                 return;
             }
 
             if (response.status === 429) {
                 const data = await response.json();
-                alert(data.message || "Too many requests. Please try again later.");
+                showToast(data.message || "Too many requests. Please try again later.", "warning");
                 return;
             }
 
             if (response.ok) {
-                alert("Book added successfully!");
+                showToast("Book added successfully!", "success");
                 bookForm.reset();
             } else {
                 const data = await response.json();
                 const msg = data.errors?.[0]?.message || data.message || "Error adding book.";
-                alert(msg);
+                showToast(msg, "error");
             }
 
         } catch (error) {

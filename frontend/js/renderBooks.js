@@ -1,12 +1,12 @@
 
 import { API_URL } from "./config.js";
 import { setAllBooks } from "./state.js";
+import { showToast } from "./toast.js";
 
 
 let currentPage = Number(new URLSearchParams(window.location.search).get("page")) || 1;
 const limit = 8;
-let currentSearch = "";
-let currentCategory = "";
+
 
 export function getCurrentPage() {
     return currentPage;
@@ -153,7 +153,7 @@ export async function getBooks(page = currentPage) {
 
     } catch (error) {
 
-        console.log("Error getting books:", error);
+        showToast("Error getting books:", error);
 
         booksList.innerHTML = `
             <p class="no-results">

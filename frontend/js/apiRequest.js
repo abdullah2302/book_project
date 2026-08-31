@@ -46,7 +46,7 @@ export async function apiRequest(url, options = {}) {
         const newAccessToken = await refreshAccessToken();
 
         if (!newAccessToken) {
-            window.location.href = "/login.html";
+           
             return response;
         }
 

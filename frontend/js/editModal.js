@@ -2,6 +2,7 @@ import { API_URL, AUTHOR_API_URL } from "./config.js";
 import { getBooks, getCurrentPage } from "./renderBooks.js";
 import { getAuthors } from "./renderAuthors.js";
 import { apiRequest } from "./apiRequest.js";
+import { showToast } from "./toast.js";
 
 const editModalOverlay = document.getElementById("editModalOverlay");
 const editForm = document.getElementById("editForm");
@@ -98,7 +99,7 @@ if (editForm) {
 
             if (updateResponse.ok) {
 
-                alert("Book updated successfully!");
+                showToast("Book updated successfully!", "success");
                 closeEditModalFn();
                getBooks(getCurrentPage());
 
@@ -106,13 +107,13 @@ if (editForm) {
 
                 const data = await updateResponse.json();
                 const msg = data.errors?.[0]?.message || data.message || "Error updating book.";
-                alert(msg);
+                showToast(msg, "error");
             }
 
         } catch (error) {
 
             console.error("Update error:", error);
-            alert("Something went wrong.");
+            showToast("Something went wrong.", "error");
         }
     });
 }

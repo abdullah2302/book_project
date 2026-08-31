@@ -11,7 +11,7 @@ if (navLinks) {
 
         const logoutBtn = document.createElement("a");
         logoutBtn.href = "#";
-        logoutBtn.textContent = `Logout (${user?.username || user?.email || "User"})`;
+        logoutBtn.textContent = `Logout (${user?.username && user?.email || "User"})`;
         logoutBtn.addEventListener("click", (e) => {
             e.preventDefault();
             logoutUser();

@@ -40,7 +40,6 @@ export async function checkAdminExists(req, res, next) {
         if (adminExists) {
           return res.status(403).json({ message: "Admin already exists. Only one admin is allowed." });
         }
-       
       } 
        next();
     } catch (error) {

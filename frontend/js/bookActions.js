@@ -3,7 +3,8 @@ import { getAllBooks } from "./state.js";
 import { getBooks, getCurrentPage } from "./renderBooks.js";
 import { openEditModal } from "./editModal.js";
 import { apiRequest } from "./apiRequest.js";
-import { showToast } from "./toast.js";
+import { showToast,confirmToast } from "./toast.js";
+
 
 const booksListEl = document.getElementById("booksList");
 
@@ -39,7 +40,7 @@ if (booksListEl) {
             return;
         }
 
-        const confirmDelete = confirm(`Are you sure you want to delete "${book.title}"?`);
+        const confirmDelete = await confirmToast(`Are you sure you want to delete "${book.title}"?`);
 
         if (!confirmDelete) {
             return;

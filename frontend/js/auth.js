@@ -10,17 +10,18 @@ if (registerForm) {
     registerForm.addEventListener("submit", async (e) => {
 
         e.preventDefault();
-
+        console.log("Form submitted");
         const username = document.getElementById("registerUsername").value;
         const email = document.getElementById("registerEmail").value;
         const password = document.getElementById("registerPassword").value;
+        const role = document.getElementById("registerRole").value;
 
         try {
 
             const response = await fetch(`${AUTH_API_URL}/register`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, email, password })
+                body: JSON.stringify({ username, email, password, role })
             });
 
             const data = await response.json();

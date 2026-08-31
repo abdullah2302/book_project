@@ -992,6 +992,90 @@ body:has(#registerForm) .form-container::after {
     color: #eab308;
 }
 
+
+.confirm-toast-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 6, 9, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 600;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.confirm-toast-overlay.show {
+    opacity: 1;
+}
+
+.confirm-toast {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 32px;
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    box-shadow: var(--shadow-lift);
+    transform: scale(0.9) translateY(10px);
+    transition: transform 0.25s ease;
+}
+
+.confirm-toast-overlay.show .confirm-toast {
+    transform: scale(1) translateY(0);
+}
+
+.confirm-toast-icon {
+    font-size: 32px;
+    color: #eab308;
+    margin-bottom: 16px;
+}
+
+.confirm-toast-message {
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.confirm-toast-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.confirm-toast-actions button {
+    flex: 1;
+    padding: 11px 0;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.confirm-btn-cancel {
+    background: var(--bg-elevated-2);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+}
+
+.confirm-btn-cancel:hover {
+    border-color: var(--border-hover);
+}
+
+.confirm-btn-yes {
+    background: var(--danger);
+    color: white;
+}
+
+.confirm-btn-yes:hover {
+    background: var(--danger-hover);
+}
+
 @media (max-width: 500px) {
     .toast-container {
         left: 20px;

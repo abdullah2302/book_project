@@ -36,3 +36,58 @@ export function showToast(message, type = "info") {
         setTimeout(() => toast.remove(), 300);
     }, 3500);
 }
+
+
+export function confirmToast(message) {
+
+    return new Promise((resolve) => {
+
+    
+        const existing = document.getElementById("confirmToastOverlay");
+        if (existing) existing.remove();
+
+        const overlay = document.createElement("div");
+        overlay.id = "confirmToastOverlay";
+        overlay.className = "confirm-toast-overlay";
+
+        overlay.innerHTML = `
+            <div class="confirm-toast">
+                <div class="confirm-toast-icon">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <p class="confirm-toast-message">${message}</p>
+                <div class="confirm-toast-actions">
+                    <button type="button" class="confirm-btn-cancel">Cancel</button>
+                    <button type="button" class="confirm-btn-yes">Yes, Confirm</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        requestAnimationFrame(() => overlay.classList.add("show"));
+
+        function close(result) {
+            overlay.classList.remove("show");
+            setTimeout(() => overlay.remove(), 250);
+            resolve(result);
+        }
+
+        overlay.querySelector(".confirm-btn-yes").addEventListener("click", () => close(true));
+        overlay.querySelector(".confirm-btn-cancel").addEventListener("click", () => close(false));
+
+   
+        overlay.addEventListener("click", (e) => {
+            if (e.target === overlay) close(false);
+        });
+
+        
+        function handleEscape(e) {
+            if (e.key === "Escape") {
+                close(false);
+                document.removeEventListener("keydown", handleEscape);
+            }
+        }
+        document.addEventListener("keydown", handleEscape);
+    });
+}

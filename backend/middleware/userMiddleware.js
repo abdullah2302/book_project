@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import User from "../model/user.js";
 dotenv.config();
 
 export function protect(req, res, next) {
@@ -32,11 +33,16 @@ export function authorizeRoles(...roles) {
 
 export async function checkAdminExists(req, res, next) {
     try {
+      const {role} = req.body;
+
+      if (role === "admin") {
         const adminExists = await User.exists({ role: "admin" });
         if (adminExists) {
-            return res.status(400).json({ message: "Admin already exists" });
+          return res.status(403).json({ message: "Admin already exists. Only one admin is allowed." });
         }
-        next();
+       
+      } 
+       next();
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }

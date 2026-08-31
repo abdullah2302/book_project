@@ -5,7 +5,7 @@ import { generateAccessToken, generateRefreshToken } from "../utils/generateToke
 
 export async function registerUser(req, res) {
     try {
-        const { username, email, password} = req.body;
+        const { username, email, password, role } = req.body;
 
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -16,7 +16,8 @@ export async function registerUser(req, res) {
         const newUser = new User({
             username,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            role: role || "user"
         });
 
         const savedUser = await newUser.save();

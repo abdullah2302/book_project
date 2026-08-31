@@ -4,11 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="./public/favicon.ico" type="image/x-icon">
-    
+
     <title>All Books</title>
-   
+
 </head>
 
 <body>
@@ -16,56 +19,55 @@
     <nav class="navbar">
 
         <div class="logo">
-             Books
+            <i class="fa-solid fa-book"></i> Books
         </div>
 
         <div class="nav-links">
-            <a href="/">Home</a>
-            <a href="/add.html">Add</a>
-            <a href="/viewAll.html" class="active">My Library</a>
-            
+            <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="/add.html"><i class="fa-solid fa-plus"></i> Add</a>
+            <a href="/viewAll.html" class="active"><i class="fa-solid fa-book-open"></i> My Library</a>
+        </div>
+    </nav>
+    <div class="container">
+
+        <h1>All Books</h1>
+
+        <div class="filter-container">
+
+            <div class="filter-group">
+                <label for="viewAllSearch"><i class="fa-solid fa-magnifying-glass"></i> Search</label>
+                <input type="text" id="viewAllSearch" placeholder="Type book title...">
+            </div>
+
+            <div class="filter-group">
+                <label for="filterField">Search by</label>
+                <select id="filterField">
+                    <option value="title" selected>Title</option>
+                    <option value="category">Category</option>
+                    <option value="price">Price</option>
+                    <option value="author">Author</option>
+                </select>
+            </div>
+
         </div>
 
-    </nav>
+        <div class="books-container">
+            <div id="booksList"></div>
+        </div>
 
-<div class="container">
-
-    <h1>All Books</h1>
-
-    <div class="filter-container">
-
-    <div class="filter-group">
-        <label for="viewAllSearch">Search</label>
-        <input type="text" id="viewAllSearch" placeholder="Type book title...">
     </div>
 
-    <div class="filter-group">
-        <label for="filterField">Search by</label>
-        <select id="filterField">
-            <option value="title" selected>Title</option>
-            <option value="category">Category</option>
-            <option value="price">Price</option>
-            <option value="author">Author</option>
-        </select>
-    </div>
-
-</div>
-
-    <div class="books-container">
-        <div id="booksList"></div>
-    </div>
-
-</div>
 
 
-    
     <div id="editModalOverlay" class="modal-overlay">
 
         <div class="modal">
 
             <div class="modal-header">
-                <h2>Edit Book</h2>
-                <button type="button" id="closeEditModal" class="modal-close">&times;</button>
+                <h2><i class="fa-solid fa-pen-to-square"></i> Edit Book</h2>
+                <button type="button" id="closeEditModal" class="modal-close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
 
             <form id="editForm">
@@ -85,7 +87,7 @@
                 <input type="file" id="editCoverImageInput" accept="image/*">
 
                 <button type="submit">
-                    Save Changes
+                    <i class="fa-solid fa-floppy-disk"></i> Save Changes
                 </button>
 
             </form>

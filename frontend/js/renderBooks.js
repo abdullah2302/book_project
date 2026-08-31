@@ -12,7 +12,7 @@ export function getCurrentPage() {
     return currentPage;
 }
 
- function updateURL(page) {
+function updateURL(page) {
     const url = new URL(window.location);
     url.searchParams.set("page", page);
     url.searchParams.set("limit", limit);
@@ -50,20 +50,24 @@ export function renderBooks(books) {
         const authorName = book.author?.name || "Unknown Author";
 
         div.innerHTML = `
-            ${coverHtml}
+    ${coverHtml}
 
-            <div class="book-info">
-                <h3>${book.title}</h3>
-                <p><strong>Author:</strong> ${authorName}</p>
-                <p><strong>Price:</strong> $${book.price}</p>
-                <p><strong>Category:</strong> ${book.category}</p>
+    <div class="book-info">
+        <h3>${book.title}</h3>
+        <p><strong>Author:</strong> ${authorName}</p>
+        <p><strong>Price:</strong> $${book.price}</p>
+        <p><strong>Category:</strong> ${book.category}</p>
 
-                <div class="book-actions">
-                    <button type="button" class="edit-btn" data-id="${book._id}">Edit</button>
-                    <button type="button" class="delete-btn" data-id="${book._id}">Delete</button>
-                </div>
-            </div>
-        `;
+        <div class="book-actions">
+            <button type="button" class="edit-btn" data-id="${book._id}">
+                <i class="fa-solid fa-pen"></i> Edit
+            </button>
+            <button type="button" class="delete-btn" data-id="${book._id}">
+                <i class="fa-solid fa-trash"></i> Delete
+            </button>
+        </div>
+    </div>
+`;
 
         booksList.appendChild(div);
     });
@@ -87,16 +91,20 @@ function renderPaginationControls(currentPageNum, totalPages) {
     }
 
     paginationEl.innerHTML = `
-        <button type="button" id="prevPage" ${currentPageNum === 1 ? "disabled" : ""}>← Previous</button>
-        <span class="page-info">Page ${currentPageNum} of ${totalPages}</span>
-        <button type="button" id="nextPage" ${currentPageNum === totalPages ? "disabled" : ""}>Next →</button>
-    `;
+    <button type="button" id="prevPage" ${currentPageNum === 1 ? "disabled" : ""}>
+        <i class="fa-solid fa-arrow-left"></i> Previous
+    </button>
+    <span class="page-info">Page ${currentPageNum} of ${totalPages}</span>
+    <button type="button" id="nextPage" ${currentPageNum === totalPages ? "disabled" : ""}>
+        Next <i class="fa-solid fa-arrow-right"></i>
+    </button>
+`;
 
-   document.getElementById("prevPage")?.addEventListener("click", () => {
-    if (currentPage > 1) {
-        getBooks(currentPage - 1);
-    }
-});
+    document.getElementById("prevPage")?.addEventListener("click", () => {
+        if (currentPage > 1) {
+            getBooks(currentPage - 1);
+        }
+    });
 
     document.getElementById("nextPage")?.addEventListener("click", () => {
         if (currentPage < totalPages) {
@@ -106,7 +114,7 @@ function renderPaginationControls(currentPageNum, totalPages) {
     });
 }
 
-export async function getBooks(page=currentPage) {
+export async function getBooks(page = currentPage) {
 
     const booksList = document.getElementById("booksList");
 

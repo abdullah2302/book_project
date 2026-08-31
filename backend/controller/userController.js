@@ -46,10 +46,10 @@ export async function loginUser(req, res) {
         const refreshToken = generateRefreshToken(user);
 
         res.cookie("refreshToken", refreshToken, {
-            httpOnly: true,
+            httpOnly: true, 
             secure: true,
             sameSite: "Strict",
-            maxAge: 7 * 24 * 60 * 60 * 1000
+            maxAge: 7 * 24 * 60 * 60 * 1000 
         });
 
 

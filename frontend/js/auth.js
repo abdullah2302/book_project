@@ -1,6 +1,7 @@
 import { AUTH_API_URL } from "./config.js";
 import { saveAuth, clearAuth } from "./authStorage.js";
 import { showToast } from "./toast.js";
+import{startSessionTimers} from "./sessionTimeout.js";
 
 const registerForm = document.getElementById("registerForm");
 const loginForm = document.getElementById("loginForm");
@@ -54,7 +55,7 @@ if (loginForm) {
 
             const response = await fetch(`${AUTH_API_URL}/login`, {
                 method: "POST",
-                credentials: "include",   
+                credentials: "include",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
             });
@@ -65,13 +66,13 @@ if (loginForm) {
                 showToast(data.message || "Login failed.", "error");
                 return;
             }
-
+             
             saveAuth(data.accessToken, data.user);
-            
+            startSessionTimers(data.accessToken);
 
             showToast("Login successful!", "success");
             window.location.href = "/viewAll.html";
-            
+
 
         } catch (error) {
             console.error("Login error:", error);
@@ -83,13 +84,13 @@ if (loginForm) {
 export async function logoutUser() {
 
     try {
-       let response = await fetch(`${AUTH_API_URL}/logout`, {
+        let response = await fetch(`${AUTH_API_URL}/logout`, {
             method: "POST",
             credentials: "include"
         });
         const data = await response.json();
-if (!response.ok) {
-            
+        if (!response.ok) {
+
             showToast(data.message || "Logout failed.", "error");
         }
 

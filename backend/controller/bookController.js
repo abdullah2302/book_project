@@ -1,7 +1,13 @@
 import Book from "../model/books.js";
 import Author from "../model/author.js";
 import mongoose from "mongoose";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url"
 
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 export async function getAllBooks(req, res) {
@@ -111,6 +117,19 @@ export async function deleteBook(req, res) {
 
         if (!book) {
             return res.status(404).json({ message: "Book not found" });
+        }
+
+       
+        if (book.coverImage) {
+            const imagePath = path.join(__dirname, "..", book.coverImage);
+
+            fs.unlink(imagePath, (err) => {
+                if (err) {
+                    console.error("Error deleting cover image:", err);
+                } else {
+                    console.log("Cover image deleted:", imagePath);
+                }
+            });
         }
 
         res.json({ message: "Book deleted successfully" });

@@ -52,8 +52,6 @@ export async function loginUser(req, res) {
             sameSite: "Strict",
             maxAge: 7 * 24 * 60 * 60 * 1000 
         });
-
-
        res.json({
             message: "Login successful",
             accessToken,
@@ -77,7 +75,6 @@ export async function refreshToken(req, res) {
             if (err) {
                 return res.status(403).json({ message: "Invalid token" });
             }
-
             const user = await User.findById(decoded.id);
 
             if (!user) {

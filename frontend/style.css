@@ -1076,6 +1076,10 @@ body:has(#registerForm) .form-container::after {
     background: var(--danger-hover);
 }
 
+.session-expired-icon {
+    color: var(--danger);
+}
+
 @media (max-width: 500px) {
     .toast-container {
         left: 20px;

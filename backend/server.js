@@ -31,7 +31,7 @@ app.use(errorHandler);
 connectDB();
 
 
-// app.use('/api/', apiLimiter);
+app.use('/api/', apiLimiter);
 app.use(express.json());
 
 app.use(express.static(path.join(dirname, "../frontend")));

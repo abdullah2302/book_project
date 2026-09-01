@@ -17,8 +17,9 @@ function getInitials(name) {
 const navLinks = document.querySelector(".nav-links");
 
 if (navLinks) {
+    const user = getUser();
 
-    if (isLoggedIn()) {
+    if (isLoggedIn() && user) {
 
         const user = getUser();
         const displayName = user.username;

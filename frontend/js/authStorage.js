@@ -11,8 +11,12 @@ export function getAccessToken() {
 }
 
 export function getUser() {
-    const user = sessionStorage.getItem(USER_KEY);
-    return user ? JSON.parse(user) : null;
+    try {
+        const user = sessionStorage.getItem(USER_KEY);
+        return user ? JSON.parse(user) : null;
+    } catch {
+        return null;   
+    }
 }
 
 export function clearAuth() {
@@ -22,7 +26,7 @@ export function clearAuth() {
 }
 
 export function isLoggedIn() {
-    return !!getAccessToken();
+    return !!getAccessToken() && !!getUser();
 }
 
 export function isAdmin() {

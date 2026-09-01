@@ -38,11 +38,14 @@ export function showToast(message, type = "info") {
 }
 
 
-export function confirmToast(message) {
+// confirmToast with timer
+
+export function confirmToast(message, options = {}) {
+
+    const { countdown = null, onExpire = null } = options;
 
     return new Promise((resolve) => {
 
-    
         const existing = document.getElementById("confirmToastOverlay");
         if (existing) existing.remove();
 
@@ -50,12 +53,17 @@ export function confirmToast(message) {
         overlay.id = "confirmToastOverlay";
         overlay.className = "confirm-toast-overlay";
 
+        const countdownHtml = countdown
+            ? `<p class="confirm-toast-countdown">Auto logout in <span id="countdownValue">${countdown}</span>s</p>`
+            : "";
+
         overlay.innerHTML = `
             <div class="confirm-toast">
                 <div class="confirm-toast-icon">
                     <i class="fa-solid fa-triangle-exclamation"></i>
                 </div>
                 <p class="confirm-toast-message">${message}</p>
+                ${countdownHtml}
                 <div class="confirm-toast-actions">
                     <button type="button" class="confirm-btn-cancel">Cancel</button>
                     <button type="button" class="confirm-btn-yes">Yes, Confirm</button>
@@ -67,7 +75,32 @@ export function confirmToast(message) {
 
         requestAnimationFrame(() => overlay.classList.add("show"));
 
+        let countdownInterval = null;
+
+        if (countdown) {
+
+            let remaining = countdown;
+            const countdownEl = overlay.querySelector("#countdownValue");
+
+            countdownInterval = setInterval(() => {
+
+                remaining--;
+
+                if (countdownEl) {
+                    countdownEl.textContent = remaining;
+                }
+
+                if (remaining <= 0) {
+                    clearInterval(countdownInterval);
+                    close(false);
+                    if (onExpire) onExpire();
+                }
+
+            }, 1000);
+        }
+
         function close(result) {
+            if (countdownInterval) clearInterval(countdownInterval);
             overlay.classList.remove("show");
             setTimeout(() => overlay.remove(), 250);
             resolve(result);
@@ -76,12 +109,10 @@ export function confirmToast(message) {
         overlay.querySelector(".confirm-btn-yes").addEventListener("click", () => close(true));
         overlay.querySelector(".confirm-btn-cancel").addEventListener("click", () => close(false));
 
-   
         overlay.addEventListener("click", (e) => {
             if (e.target === overlay) close(false);
         });
 
-        
         function handleEscape(e) {
             if (e.key === "Escape") {
                 close(false);

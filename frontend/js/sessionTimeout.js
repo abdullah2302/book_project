@@ -1,60 +1,16 @@
 import { getAccessToken, clearAuth } from "./authStorage.js";
 import { AUTH_API_URL } from "./config.js";
+import { confirmToast } from "./toast.js";
 
 let warningTimer = null;
-let logoutTimer = null;
-
 
 function getTokenExpiry(token) {
     try {
         const payload = JSON.parse(atob(token.split(".")[1]));
-        return payload.exp * 1000; 
+        return payload.exp * 1000;
     } catch {
         return null;
     }
-}
-
-function showSessionWarning(onStayLoggedIn, onLogout) {
-
-    const existing = document.getElementById("sessionWarningOverlay");
-    if (existing) existing.remove();
-
-    const overlay = document.createElement("div");
-    overlay.id = "sessionWarningOverlay";
-    overlay.className = "confirm-toast-overlay";
-
-    overlay.innerHTML = `
-        <div class="confirm-toast">
-            <div class="confirm-toast-icon">
-                <i class="fa-solid fa-clock"></i>
-            </div>
-            <p class="confirm-toast-message">
-                Your session is about to expire. Do you want to stay logged in?
-            </p>
-            <div class="confirm-toast-actions">
-                <button type="button" class="confirm-btn-cancel" id="sessionLogoutBtn">Logout</button>
-                <button type="button" class="confirm-btn-yes" id="sessionStayBtn">Stay Logged In</button>
-            </div>
-        </div>
-    `;
-
-    document.body.appendChild(overlay);
-    requestAnimationFrame(() => overlay.classList.add("show"));
-
-    function close() {
-        overlay.classList.remove("show");
-        setTimeout(() => overlay.remove(), 250);
-    }
-
-    document.getElementById("sessionStayBtn").addEventListener("click", () => {
-        close();
-        onStayLoggedIn();
-    });
-
-    document.getElementById("sessionLogoutBtn").addEventListener("click", () => {
-        close();
-        onLogout();
-    });
 }
 
 function showSessionExpiredMessage() {
@@ -114,7 +70,6 @@ async function tryRefreshSession() {
 
 function handleSessionExpired() {
     clearTimeout(warningTimer);
-    clearTimeout(logoutTimer);
     clearAuth();
     showSessionExpiredMessage();
 }
@@ -122,7 +77,6 @@ function handleSessionExpired() {
 export function startSessionTimers(token = getAccessToken()) {
 
     clearTimeout(warningTimer);
-    clearTimeout(logoutTimer);
 
     if (!token) return;
 
@@ -137,24 +91,29 @@ export function startSessionTimers(token = getAccessToken()) {
         return;
     }
 
-   
+    // Expiry se 1 minute pehle warning dikhao
     const warningTime = Math.max(timeUntilExpiry - 60000, 0);
 
     warningTimer = setTimeout(() => {
-        showSessionWarning(
-            () => tryRefreshSession(),      // Stay logged in
-            () => {                          // Logout
+
+        confirmToast("Your session is about to expire. Stay logged in?", {
+            countdown: 60,
+            onExpire: () => {
                 clearAuth();
                 window.location.href = "/login.html";
             }
-        );
+        }).then((confirmed) => {
+
+            if (confirmed) {
+                tryRefreshSession();
+            } else {
+                clearAuth();
+                window.location.href = "/login.html";
+            }
+        });
+
     }, warningTime);
-
-    logoutTimer = setTimeout(() => {
-        handleSessionExpired();
-    }, timeUntilExpiry);
 }
-
 
 const currentToken = getAccessToken();
 if (currentToken) {

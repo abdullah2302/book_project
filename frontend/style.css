@@ -1046,6 +1046,17 @@ body:has(#registerForm) .form-container::after {
     gap: 10px;
 }
 
+.confirm-toast-countdown {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: -12px;
+    margin-bottom: 20px;
+}
+
+.confirm-toast-countdown span {
+    color: var(--danger);
+    font-weight: 700;
+}
 .confirm-toast-actions button {
     flex: 1;
     padding: 11px 0;

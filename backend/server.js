@@ -22,7 +22,7 @@ app.use(helmet());
 
 app.use(cookieParser());
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000","https://book-project-k4kg.onrender.com"],
     credentials: true,
   }));
 app.disable('x-powered-by');

@@ -11,12 +11,8 @@ export function getAccessToken() {
 }
 
 export function getUser() {
-    try {
-        const user = sessionStorage.getItem(USER_KEY);
-        return user ? JSON.parse(user) : null;
-    } catch {
-        return null;   
-    }
+    const user = sessionStorage.getItem(USER_KEY);
+    return user ? JSON.parse(user) : null;
 }
 
 export function clearAuth() {

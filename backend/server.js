@@ -39,7 +39,6 @@ app.use("/uploads", express.static(path.join(dirname, "../uploads")));
 
 app.use("/api/books", bookRoutes);
 app.use("/api/authors", authorRoutes);
-
 app.use("/api/users", userRoutes);
 
 app.listen(PORT, () => {

@@ -1100,10 +1100,6 @@ body:has(#registerForm) .form-container::after {
     transition: 0.2s ease;
 }
 
-.user-menu-trigger:hover {
-    color: var(--text-primary);
-    border-color: var(--border);
-}
 
 .user-menu-trigger i.fa-circle-user {
     font-size: 18px;
@@ -1198,6 +1194,36 @@ body:has(#registerForm) .form-container::after {
 
 .user-menu-logout:hover {
     background: rgba(217, 83, 79, 0.1);
+}
+.user-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-text);
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.user-avatar-lg {
+    width: 42px;
+    height: 42px;
+    font-size: 15px;
+}
+
+.user-menu-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.user-menu-header .user-menu-name {
+    margin-bottom: 4px;
 }
 @media (max-width: 500px) {
     .toast-container {

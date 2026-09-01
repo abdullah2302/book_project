@@ -21,7 +21,4 @@ router.route("/:id")
       .get(getBookById)
       .put(protect, uploadMiddleware, bookValidationRules, checkUniqueTitle, updateBook)
       .delete(protect, authorizeRoles("admin"), deleteBook);
-
-
-
 export default router;

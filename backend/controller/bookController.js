@@ -76,6 +76,12 @@ export async function createBook(req, res) {
 
 export async function updateBook(req, res) {
     try {
+
+        const existingBook = await Book.findById(req.params.id);
+        if (!existingBook) {
+            return res.status(404).json({ message: "Book not found" });
+        }
+
         const updateData = {
             title: req.body.title,
             author: req.body.author,
@@ -85,6 +91,19 @@ export async function updateBook(req, res) {
         };
         if (req.file) {
             updateData.coverImage = req.file.path;
+
+            if (existingBook.coverImage) {
+                const oldImagePath = path.join(__dirname, "..", "..", existingBook.coverImage);
+                console.log("Deleting old cover image at:", oldImagePath);
+
+                fs.unlink(oldImagePath, (err) => {
+                    if (err) {``
+                        console.error("Error deleting old cover image:", err);
+                    } else {
+                        console.log("Old cover image deleted:", oldImagePath);
+                    }
+                });
+            }
         }
 
         if (updateData.price < 0) {
@@ -121,7 +140,8 @@ export async function deleteBook(req, res) {
 
        
         if (book.coverImage) {
-            const imagePath = path.join(__dirname, "..", book.coverImage);
+            const imagePath = path.join(__dirname, "..", "..", book.coverImage);
+            console.log("Deleting cover image at:", imagePath);
 
             fs.unlink(imagePath, (err) => {
                 if (err) {

@@ -95,6 +95,7 @@ export async function logoutUser() {
         }
 
         showToast("Logout successful!", "success");
+        clearAuth();
 
 
     } catch (error) {

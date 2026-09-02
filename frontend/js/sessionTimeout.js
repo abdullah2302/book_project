@@ -90,8 +90,6 @@ export function startSessionTimers(token = getAccessToken()) {
         handleSessionExpired();
         return;
     }
-
-    // Expiry se 1 minute pehle warning dikhao
     const warningTime = Math.max(timeUntilExpiry - 60000, 0);
 
     warningTimer = setTimeout(() => {

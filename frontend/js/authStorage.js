@@ -1,4 +1,5 @@
 const ACCESS_TOKEN_KEY = "accessToken";
+const REFRESH_TOKEN_KEY = "refreshToken";
 const USER_KEY = "user";
 
 function getCookieValue(name) {
@@ -20,6 +21,7 @@ function clearCookie(name) {
 
 export function saveAuth(accessToken, user) {
     setCookie(ACCESS_TOKEN_KEY, accessToken);
+    setCookie(REFRESH_TOKEN_KEY, user.refreshToken);
     localStorage.setItem(USER_KEY, JSON.stringify(user));
 }
 
@@ -34,6 +36,7 @@ export function getUser() {
 
 export function clearAuth() {
     clearCookie(ACCESS_TOKEN_KEY);
+    clearCookie(REFRESH_TOKEN_KEY);
     localStorage.removeItem(USER_KEY);
     localStorage.clear();
 }

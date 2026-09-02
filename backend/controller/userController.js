@@ -49,7 +49,7 @@ export async function loginUser(req, res) {
 
         res.cookie("accessToken", accessToken, {
             httpOnly: false,
-            secure: true,
+            secure: false,
             sameSite: "Lax",
             maxAge: ms(process.env.JWT_ACCESS_EXPIRY)
         });
@@ -93,7 +93,7 @@ export async function refreshToken(req, res) {
             const accessToken = generateAccessToken(user);
             res.cookie("accessToken", accessToken, {
                 httpOnly: false,
-                secure: true,
+                secure: false,
                 sameSite: "Lax",
                 maxAge: ms(process.env.JWT_ACCESS_EXPIRY)
             });
@@ -129,7 +129,7 @@ export async function logoutUser(req, res) {
         }
 
         res.clearCookie("accessToken", { httpOnly: false, secure: false, sameSite: "Lax" });
-        res.clearCookie("refreshToken", { httpOnly: true, secure: false, sameSite: "Lax" });
+        res.clearCookie("refreshToken", { httpOnly: true, secure: true, sameSite: "Lax" });
         res.status(200).json({ message: "Logged out successfully" });
 
     } catch (error) {

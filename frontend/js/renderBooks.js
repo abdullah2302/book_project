@@ -2,6 +2,7 @@
 import { API_URL } from "./config.js";
 import { setAllBooks } from "./state.js";
 import { showToast } from "./toast.js";
+import { isLoggedIn, isAdmin } from "./authStorage.js";
 
 
 let currentPage = Number(new URLSearchParams(window.location.search).get("page")) || 1;
@@ -37,7 +38,8 @@ export function renderBooks(books) {
         `;
         return;
     }
-
+       const loggedIn = isLoggedIn();
+    const admin = isAdmin();
     books.forEach(book => {
 
         const div = document.createElement("div");
@@ -49,25 +51,41 @@ export function renderBooks(books) {
 
         const authorName = book.author?.name || "Unknown Author";
 
+       let actionsHtml = "";
+
+        if (loggedIn) {
+
+            const editBtn = `
+                <button type="button" class="edit-btn" data-id="${book._id}">
+                    <i class="fa-solid fa-pen"></i> Edit
+                </button>
+            `;
+
+            const deleteBtn = `
+                <button type="button" class="delete-btn" data-id="${book._id}">
+                    <i class="fa-solid fa-trash"></i> Delete
+                </button>
+            `;
+
+            if (admin) {
+                actionsHtml = `<div class="book-actions">${editBtn}${deleteBtn}</div>`;
+            } else {
+                actionsHtml = `<div class="book-actions">${editBtn}</div>`;
+            }
+        }
+        
+
         div.innerHTML = `
-    ${coverHtml}
+            ${coverHtml}
 
-    <div class="book-info">
-        <h3>${book.title}</h3>
-        <p><strong>Author:</strong> ${authorName}</p>
-        <p><strong>Price:</strong> $${book.price}</p>
-        <p><strong>Category:</strong> ${book.category}</p>
-
-        <div class="book-actions">
-            <button type="button" class="edit-btn" data-id="${book._id}">
-                <i class="fa-solid fa-pen"></i> Edit
-            </button>
-            <button type="button" class="delete-btn" data-id="${book._id}">
-                <i class="fa-solid fa-trash"></i> Delete
-            </button>
-        </div>
-    </div>
-`;
+            <div class="book-info">
+                <h3>${book.title}</h3>
+                <p><strong>Author:</strong> ${authorName}</p>
+                <p><strong>Price:</strong> $${book.price}</p>
+                <p><strong>Category:</strong> ${book.category}</p>
+                ${actionsHtml}
+            </div>
+        `;
 
         booksList.appendChild(div);
     });

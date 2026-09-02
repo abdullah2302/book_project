@@ -1,4 +1,4 @@
-import { getAccessToken, clearAuth } from "./authStorage.js";
+import { getAccessToken, clearAuth, saveAuth, getUser } from "./authStorage.js";
 import { AUTH_API_URL } from "./config.js";
 import { confirmToast } from "./toast.js";
 
@@ -60,7 +60,7 @@ async function tryRefreshSession() {
             return;
         }
 
-        sessionStorage.setItem("accessToken", data.accessToken);
+        saveAuth(data.accessToken, getUser());
         startSessionTimers(data.accessToken);
 
     } catch {

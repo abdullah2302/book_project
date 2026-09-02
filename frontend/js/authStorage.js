@@ -1,24 +1,41 @@
 const ACCESS_TOKEN_KEY = "accessToken";
 const USER_KEY = "user";
 
+function getCookieValue(name) {
+    const cookie = document.cookie
+        .split("; ")
+        .find((entry) => entry.startsWith(`${name}=`));
+
+    if (!cookie) return "";
+    return decodeURIComponent(cookie.split("=").slice(1).join("="));
+}
+
+function setCookie(name, value, maxAgeInSeconds = 7 * 24 * 60 * 60) {
+    document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAgeInSeconds}; SameSite=Lax`;
+}
+
+function clearCookie(name) {
+    document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax`;
+}
+
 export function saveAuth(accessToken, user) {
-    sessionStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
-    sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    setCookie(ACCESS_TOKEN_KEY, accessToken);
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
 }
 
 export function getAccessToken() {
-    return sessionStorage.getItem(ACCESS_TOKEN_KEY);
+    return getCookieValue(ACCESS_TOKEN_KEY);
 }
 
 export function getUser() {
-    const user = sessionStorage.getItem(USER_KEY);
+    const user = localStorage.getItem(USER_KEY);
     return user ? JSON.parse(user) : null;
 }
 
 export function clearAuth() {
-    sessionStorage.removeItem(ACCESS_TOKEN_KEY);
-    sessionStorage.removeItem(USER_KEY);
-    sessionStorage.clear();
+    clearCookie(ACCESS_TOKEN_KEY);
+    localStorage.removeItem(USER_KEY);
+    localStorage.clear();
 }
 
 export function isLoggedIn() {

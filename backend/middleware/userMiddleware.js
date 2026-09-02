@@ -5,22 +5,22 @@ dotenv.config();
 
 export function protect(req, res, next) {
   const authHeader = req.headers.authorization;
-   console.log("Auth header:", authHeader); 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return res.status(401).json({ message: "Unauthorized" });
-    }
+  const tokenFromCookie = req.cookies?.accessToken;
+  const token = authHeader?.startsWith("Bearer ") ? authHeader.split(" ")[1] : tokenFromCookie;
 
-    const token = authHeader.split(" ")[1]; 
+  if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+  }
 
-    try {
-        const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
-        req.user = decoded; 
-        next();
-    }
-    catch (error) {
-         console.log("Token verification failed:", error.message);
-        return res.status(401).json({ message: "Unauthorized" });
-    }
+  try {
+      const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+      req.user = decoded;
+      next();
+  }
+  catch (error) {
+      console.log("Token verification failed:", error.message);
+      return res.status(401).json({ message: "Unauthorized" });
+  }
 }
 
 export function authorizeRoles(...roles) {

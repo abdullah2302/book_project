@@ -2,6 +2,7 @@ import User from "../model/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { generateAccessToken, generateRefreshToken } from "../utils/generateToken.js";
+import ms from "ms";
 
 export async function registerUser(req, res) {
     try {
@@ -46,13 +47,21 @@ export async function loginUser(req, res) {
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
 
-        res.cookie("refreshToken", refreshToken, {
-            httpOnly: true, 
+        res.cookie("accessToken", accessToken, {
+            httpOnly: false,
             secure: true,
-            sameSite: "none",
-            maxAge: 7 * 24 * 60 * 60 * 1000 
+            sameSite: "Lax",
+            maxAge: ms(process.env.JWT_ACCESS_EXPIRY)
         });
-       res.json({
+
+        res.cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "Lax",
+            maxAge: ms(process.env.JWT_REFRESH_EXPIRY)
+        });
+
+        res.json({
             message: "Login successful",
             accessToken,
             user: { id: user._id, username: user.username, email: user.email, role: user.role }
@@ -82,6 +91,12 @@ export async function refreshToken(req, res) {
             }
 
             const accessToken = generateAccessToken(user);
+            res.cookie("accessToken", accessToken, {
+                httpOnly: false,
+                secure: true,
+                sameSite: "Lax",
+                maxAge: ms(process.env.JWT_ACCESS_EXPIRY)
+            });
             res.status(200).json({ accessToken });
         });
 
@@ -113,7 +128,8 @@ export async function logoutUser(req, res) {
             await User.findOneAndUpdate({ refreshToken: token }, { refreshToken: null });
         }
 
-        res.clearCookie("refreshToken", { httpOnly: true, secure: true, sameSite: "Strict" });
+        res.clearCookie("accessToken", { httpOnly: false, secure: false, sameSite: "Lax" });
+        res.clearCookie("refreshToken", { httpOnly: true, secure: false, sameSite: "Lax" });
         res.status(200).json({ message: "Logged out successfully" });
 
     } catch (error) {

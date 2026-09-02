@@ -5,6 +5,7 @@ dotenv.config();
 
 export function protect(req, res, next) {
   const authHeader = req.headers.authorization;
+   console.log("Auth header:", authHeader); 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
         return res.status(401).json({ message: "Unauthorized" });
     }
@@ -17,6 +18,7 @@ export function protect(req, res, next) {
         next();
     }
     catch (error) {
+         console.log("Token verification failed:", error.message);
         return res.status(401).json({ message: "Unauthorized" });
     }
 }

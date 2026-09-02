@@ -43,6 +43,3 @@ export const bookValidationRules = (req, res, next) => {
         next(error); 
     }
 };
-
-
-

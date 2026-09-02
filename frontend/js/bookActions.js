@@ -50,10 +50,12 @@ if (booksListEl) {
 
             const deleteResponse = await apiRequest(`${API_URL}/${id}`, { method: "DELETE" });
 
-            if (deleteResponse.status === 401) {
+            if (deleteResponse.status === 403 || deleteResponse.status === 401) {
                 showToast("You are not Admin. if you are admin Login and give the proof to delete the book.", "error");
                 return;
             }
+
+            
 
             if (deleteResponse.ok) {
                 showToast("Book deleted successfully!", "success");

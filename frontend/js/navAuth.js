@@ -21,7 +21,7 @@ if (navLinks) {
 
     if (isLoggedIn() && user) {
 
-        const user = getUser();
+        
         const displayName = user.username;
         const initials = getInitials(displayName);
 

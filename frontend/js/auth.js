@@ -97,11 +97,14 @@ export async function logoutUser() {
         showToast("Logout successful!", "success");
         clearAuth();
 
+          setTimeout(() => {
+            window.location.reload();
+        }, 100);
 
     } catch (error) {
         console.error("Logout error:", error);
     }
 
-    clearAuth();
-    window.location.href = "/login.html";
+ 
+    
 }

@@ -5,6 +5,6 @@ export async function handleApiResponse(response) {
         alert(data.message || "Too many requests. Please slow down and try again later.");
         return null;
     }
-    
+
     return response;
 }

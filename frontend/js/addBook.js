@@ -1,6 +1,6 @@
 import { API_URL } from "./config.js";
 import { apiRequest } from "./apiRequest.js";
-import{showToast} from "./toast.js";
+import { showToast } from "./toast.js";
 
 const bookForm = document.getElementById("bookForm");
 
@@ -19,14 +19,14 @@ if (bookForm) {
 
         const formData = new FormData();
         formData.append('title', document.getElementById("title").value);
-        formData.append('author', authorSelect.value);  
+        formData.append('author', authorSelect.value);
         formData.append('price', document.getElementById("price").value);
         formData.append('category', document.getElementById("category").value);
         formData.append('coverImage', document.getElementById("coverImage").files[0]);
 
         try {
 
-             const response = await apiRequest(API_URL, {
+            const response = await apiRequest(API_URL, {
                 method: "POST",
                 body: formData
             });

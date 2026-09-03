@@ -16,7 +16,7 @@ async function refreshAccessToken() {
 
         const data = await response.json();
         saveAuth(data.accessToken, getUser());
-        
+
 
         return data.accessToken;
 
@@ -40,17 +40,17 @@ export async function apiRequest(url, options = {}) {
         credentials: "include"
     });
 
-    
+
     if (response.status === 401) {
 
         const newAccessToken = await refreshAccessToken();
 
         if (!newAccessToken) {
-           
+
             return response;
         }
 
-      
+
         response = await fetch(url, {
             ...options,
             headers: {

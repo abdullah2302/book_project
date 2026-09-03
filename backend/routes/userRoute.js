@@ -1,6 +1,6 @@
 import express from "express";
 import { registerUser, loginUser, logoutUser, refreshToken, getUserProfile } from "../controller/userController.js";
-import {protect, checkAdminExists} from "../middleware/userMiddleware.js";
+import { protect, checkAdminExists } from "../middleware/userMiddleware.js";
 import morgan from "morgan";
 
 const router = express.Router();

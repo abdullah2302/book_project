@@ -14,8 +14,8 @@ router.use(morgan("dev"));
 router.route("/")
       .get(getAllBooks)
       .post(protect, uploadMiddleware, bookValidationRules, checkUniqueTitle, createBook);
-      
-router.get("/aggregate",getCategoryAggregatedBooks);
+
+router.get("/aggregate", getCategoryAggregatedBooks);
 
 router.route("/:id")
       .get(getBookById)

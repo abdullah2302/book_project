@@ -7,19 +7,19 @@ const bookSchema = new mongoose.Schema({
         unique: true
     },
     author: {
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: "Author", 
-        required: true 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Author",
+        required: true
     },
     price: {
         type: Number,
-        
+
     },
     category: {
         type: String,
         required: true
     },
-    coverImage: { 
+    coverImage: {
         type: String
     },
 });

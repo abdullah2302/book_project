@@ -38,7 +38,7 @@ export function renderBooks(books) {
         `;
         return;
     }
-       const loggedIn = isLoggedIn();
+    const loggedIn = isLoggedIn();
     const admin = isAdmin();
     books.forEach(book => {
 
@@ -51,7 +51,7 @@ export function renderBooks(books) {
 
         const authorName = book.author?.name || "Unknown Author";
 
-       let actionsHtml = "";
+        let actionsHtml = "";
 
         if (loggedIn) {
 
@@ -73,7 +73,7 @@ export function renderBooks(books) {
                 actionsHtml = `<div class="book-actions">${editBtn}</div>`;
             }
         }
-        
+
 
         div.innerHTML = `
             ${coverHtml}

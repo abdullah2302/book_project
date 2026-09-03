@@ -60,10 +60,10 @@ if (filterField) {
 
     filterField.addEventListener("change", () => {
 
-        
+
         viewAllSearch.placeholder = placeholders[filterField.value] || "Search...";
 
-        
+
         if (viewAllSearch.value.trim()) {
             runFilter();
         }

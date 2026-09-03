@@ -9,7 +9,7 @@ import "./auth.js";
 import "./navAuth.js";
 import "./sessionTimeout.js";
 import { getBooks } from "./renderBooks.js";
-import {getAuthors} from "./renderAuthors.js";
+import { getAuthors } from "./renderAuthors.js";
 
 getAuthors();
 

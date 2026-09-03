@@ -1,7 +1,7 @@
 import { AUTH_API_URL } from "./config.js";
 import { saveAuth, clearAuth } from "./authStorage.js";
 import { showToast } from "./toast.js";
-import{startSessionTimers} from "./sessionTimeout.js";
+import { startSessionTimers } from "./sessionTimeout.js";
 
 const registerForm = document.getElementById("registerForm");
 const loginForm = document.getElementById("loginForm");
@@ -66,7 +66,7 @@ if (loginForm) {
                 showToast(data.message || "Login failed.", "error");
                 return;
             }
-             
+
             saveAuth(data.accessToken, data.user);
             startSessionTimers(data.accessToken);
 

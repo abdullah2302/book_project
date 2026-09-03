@@ -101,7 +101,7 @@ if (editForm) {
 
                 showToast("Book updated successfully!", "success");
                 closeEditModalFn();
-               getBooks(getCurrentPage());
+                getBooks(getCurrentPage());
 
             } else {
 

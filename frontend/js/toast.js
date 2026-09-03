@@ -25,12 +25,12 @@ export function showToast(message, type = "info") {
 
     container.appendChild(toast);
 
-   
+
     requestAnimationFrame(() => {
         toast.classList.add("show");
     });
 
-  
+
     setTimeout(() => {
         toast.classList.remove("show");
         setTimeout(() => toast.remove(), 300);

@@ -12,10 +12,10 @@ const __dirname = path.dirname(__filename);
 
 export async function getAllBooks(req, res) {
     try {
-        const page=parseInt(req.query.page) || 1;
-        const limit=parseInt(req.query.limit) || 8;
-        const skip=(page-1)*limit;
-        
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 8;
+        const skip = (page - 1) * limit;
+
 
         const books = await Book.find()
             .skip(skip)
@@ -42,7 +42,7 @@ export async function getAllBooks(req, res) {
 export async function getBookById(req, res) {
     try {
         const book = await Book.findById(req.params.id);
- 
+
         if (!book) {
             return res.status(404).json({ message: "Book not found" });
         }
@@ -97,7 +97,8 @@ export async function updateBook(req, res) {
                 console.log("Deleting old cover image at:", oldImagePath);
 
                 fs.unlink(oldImagePath, (err) => {
-                    if (err) {``
+                    if (err) {
+                        ``
                         console.error("Error deleting old cover image:", err);
                     } else {
                         console.log("Old cover image deleted:", oldImagePath);
@@ -111,7 +112,7 @@ export async function updateBook(req, res) {
         }
 
         updateData.title = updateData.title.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
-        
+
         updateData.category = updateData.category.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 
         const book = await Book.findByIdAndUpdate(
@@ -138,7 +139,7 @@ export async function deleteBook(req, res) {
             return res.status(404).json({ message: "Book not found" });
         }
 
-       
+
         if (book.coverImage) {
             const imagePath = path.join(__dirname, "..", "..", book.coverImage);
             console.log("Deleting cover image at:", imagePath);
@@ -168,7 +169,7 @@ export async function getCategoryAggregatedBooks(req, res) {
 
         const pipeline = [];
 
-    
+
         pipeline.push({
             $lookup: {
                 from: "authors",
@@ -185,7 +186,7 @@ export async function getCategoryAggregatedBooks(req, res) {
             }
         });
 
-       
+
         const matchStage = {};
 
         if (category) {
@@ -210,11 +211,11 @@ export async function getCategoryAggregatedBooks(req, res) {
             pipeline.push({ $match: matchStage });
         }
 
-        
+
         pipeline.push({
             $group: {
                 _id: "$category",
-                titles: { $push: "$title" }, 
+                titles: { $push: "$title" },
                 totalBooks: { $sum: 1 },
                 averagePrice: { $avg: "$price" },
                 maxPrice: { $max: "$price" },
@@ -222,10 +223,10 @@ export async function getCategoryAggregatedBooks(req, res) {
             }
         });
 
-      
+
         pipeline.push({ $sort: { totalBooks: -1 } });
 
-        
+
         pipeline.push({
             $project: {
                 _id: 0,
@@ -239,7 +240,7 @@ export async function getCategoryAggregatedBooks(req, res) {
             }
         });
 
-       
+
         if (limit) {
             pipeline.push({ $limit: Number(limit) });
         }

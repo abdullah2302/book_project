@@ -124,7 +124,7 @@ export async function logoutUser(req, res) {
         const token = req.cookies?.refreshToken;
 
         if (token) {
-           
+
             await User.findOneAndUpdate({ refreshToken: token }, { refreshToken: null });
         }
 

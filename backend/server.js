@@ -16,15 +16,15 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 const PORT = process.env.PORT;
 const app = express();
-app.set('trust proxy', 1);  
+app.set('trust proxy', 1);
 app.use(helmet());
 
 
 app.use(cookieParser());
 app.use(cors({
-    origin: ["http://localhost:3000","https://book-project-k4kg.onrender.com"],
-    credentials: true,
-  }));
+  origin: ["http://localhost:3000", "https://book-project-k4kg.onrender.com"],
+  credentials: true,
+}));
 app.disable('x-powered-by');
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -43,5 +43,5 @@ app.use("/api/authors", authorRoutes);
 app.use("/api/users", userRoutes);
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

@@ -40,6 +40,6 @@ export const bookValidationRules = (req, res, next) => {
             }));
             return res.status(400).json({ errors: validationErrors });
         }
-        next(error); 
+        next(error);
     }
 };

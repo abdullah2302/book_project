@@ -5,10 +5,10 @@ export async function checkUniqueTitle(req, res, next) {
         const { title } = req.body;
         const bookId = req.params.id;
 
-      
+
         const existingBook = await book.findOne({ title });
 
-        
+
         if (existingBook && existingBook._id.toString() !== bookId) {
             return res.status(400).json({ message: "Book title must be unique" });
         }

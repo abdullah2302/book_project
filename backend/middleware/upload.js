@@ -1,4 +1,4 @@
-import {upload} from '../config/multer.js';
+import { upload } from '../config/multer.js';
 
 export const uploadMiddleware = (req, res, next) => {
     const uploadSingle = upload.single('coverImage');

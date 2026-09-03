@@ -4,9 +4,9 @@ const authorSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-       
+
     },
-    qualification: {  
+    qualification: {
         type: String,
         required: true
     },
